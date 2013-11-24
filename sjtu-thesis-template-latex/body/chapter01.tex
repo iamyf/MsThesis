@@ -14,8 +14,6 @@
 \section{研究背景}
 \label{sec:background}
 
-backgrond
-
 在计算机科学理论的发展过程中，许多不同的计算模型被相继提出。最初的计算模型所定义的都是串行计算。例如图灵机(Turing Machine)\cite{Turing1936}, $\lambda$-演算($\lambda$-Calculus)\cite{Church1985}, 递归函数(Recursive Function)\cite{Rogers1967}等。随着并行化计算的发展，理论计算机科学家提出了并行化的计算模型并进行了深入的研究。其中比较有代表性的是由R.Milner提出的Communication Concurrency System (CCS)\cite{Milner1989}。该模型利用进程演算的方法对可以实现并发和交互的进程模型进行了刻画。
 
 在这些计算模型的研究中，涉及到一个计算机科学中十分重要的领域：形式化验证(Formal Verification)。而这些计算模型，大多数都可以描述无限状态系统。对无限状态系统的形式化验证(Verification on Infinite State Systems)，是现今理论计算机科学中的一个热门的研究方向，它包含了一系列具有重要意义的研究课题。这些问题往往可以与可计算理论(Computability), 计算复杂性理论(Computational Complexity)，算法(Algorithm)等领域中的一些经典问题相联系起来，从而得出许多振奋人心的可计算性或复杂性结论。
@@ -29,4 +27,6 @@ backgrond
 \section{国内外研究现状}
 \label{sec:state of the art}
 
+无限状态系统的验证近年来一直是理论计算机科学中的一个十分活跃的研究领域。在这方面最早的可判定性结论是由Baeten, Bergstra和 Klop证明的上下文无关语法关于强互模拟等价的可判定性\cite{Baeten1993}。 这一结论引发了对于各种不同无限状态系统的等价性判定的研究，许多问题的可判定性和复杂性结论被提出并得到了证明。我们可以找到许多相关的调查研究\cite{Burkart2001, Kucera2006, Moller2004, Srba2002}。
 
+这些研究所涉及到的大多数模型都可以由进程重写系统所产生\cite{Mayr2000}。这些研究都极大的提升了我们对于一些经典无限状态系统模型的认识，包括基本进程代数(Basic Process Algebra, 简称BPA)\cite{Bergstra1985}，基本并行进程(Basic Parallel Process, 简称BPP)
