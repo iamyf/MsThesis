@@ -1,11 +1,3 @@
-%%==========================
-%% chapter01.tex for SJTU Master Thesis
-%% based on CASthesis
-%% modified by wei.jianwen@gmail.com
-%% version: 0.3a
-%% Encoding: UTF-8
-%% last update: Dec 5th, 2010
-%%==================================================
 
 %\bibliographystyle{sjtu2} %[此处用于每章都生产参考文献]
 \chapter{绪论}
@@ -24,9 +16,41 @@
 
 而对于一个具体的模型所描述的系统，确定需要研究的等价关系后，我们所关心的问题主要分3类，分别是关于该等价关系的等价性判定(Equivalence Checking),与某个给定的有限状态系统的等价性判定(Finiteness)和是否存在一个有限状态系统与该系统等价(Regularity)。这3类问题在本质上有着一定的联系，但是在解决的方法和难度上却有着区别。本文将重点对第三类问题，即有限性问题(Regularity Problem)进行讨论。
 
+从直观的角度解释，Regularity问题是给定一个可描述无限状态系统的模型是否可表示为等价的有限系统的判定问题。在某种意义上，它也是等价判定问题和模型检测问题的一个重要条件。另一个振奋人心的事实是，Regularity性质的成立与否，决定了系统所能到达的不同状态是否是有限的，该条件如果成立，相应的判定问题通常都存在快速解决的算法。
+
 \section{国内外研究现状}
 \label{sec:state of the art}
 
 无限状态系统的验证近年来一直是理论计算机科学中的一个十分活跃的研究领域。在这方面最早的可判定性结论是由Baeten, Bergstra和 Klop证明的上下文无关语法关于强互模拟等价的可判定性\cite{Baeten1993}。 这一结论引发了对于各种不同无限状态系统的等价性判定的研究，许多问题的可判定性和复杂性结论被提出并得到了证明。我们可以找到许多相关的调查研究\cite{Burkart2001, Kucera2006, Moller2004, Srba2002}。
 
-这些研究所涉及到的大多数模型都可以由进程重写系统所产生\cite{Mayr2000}。这些研究都极大的提升了我们对于一些经典无限状态系统模型的认识，包括基本进程代数(Basic Process Algebra, 简称BPA)\cite{Bergstra1985}，基本并行进程(Basic Parallel Process, 简称BPP)
+这些研究所涉及到的大多数模型都可以由进程重写系统所产生\cite{Mayr2000}，这些研究都极大的提升了我们对于一些经典无限状态系统模型的认识。这个框架下包括了许多我们熟悉的模型，如基本进程代数(Basic Process Algebra, 简称BPA)\cite{Bergstra1985}，基本并行进程(Basic Parallel Process, 简称BPP)\cite{Christensen1993}，进程代数(Process Algebra，简称PA)\cite{Baeten1990}，下推自动机(Pushdown Automaton，简称PDA)\cite{Hopcroft1979}以及Petri网(Petri Net，简称PN)\cite{Peterson1977}。这些模型关于互模拟等价的表达能力在进程重写系统中产生了一个严格包含关系的层次结构，这种结构使得我们的研究更加具有效率。例如一个模型的复杂性上界结论可以直接隐含其子模型上的结论，而如果对于某个模型中一个问题，我们能在其某个子模型上证明它的复杂性下界，那这个结论在该模型上显然也成立。以上即为本文中的研究所涉及到的模型。
+
+在这个无限状态系统验证的领域中，人们最初的兴趣总是集中在对Equivalence Checking问题的研究。经过20年的发展，关于强互模拟关系的判定研究已经比较成熟。最早的BPA上的判定性算法是通过对进程的分解技术实现的\cite{Baeten1993,Christensen1992}，经过对该技术的改进和对模型的进一步限定，在normed BPA和normed BPP上，强互模拟都有了多项式时间的判定性算法\cite{Hirshfeld,Hirshfelda}，在这里，normed是对于进程模型的一个限定条件，它规定了模型必须可以到达空进程。同时，对于一般的BPA和BPP，2-EXPTIME和PSPACE完全的时间复杂性也分别被证明\cite{Burkart1995,Jancar2012,Jancar2003}。对于PDA，强互模拟是可判定的\cite{Senizergues1998,Stirling1998}，同时对normed PA强互模拟的判定也被证明是在2-NEXPTIME的时间复杂度内可判定的\cite{Hirshfeldb}。然而，PN的强互模拟等价性即使在normed条件的限定下也是不可判定的\cite{Jancar1995}。 
+
+但是在实际的系统中，例如在程序分析和数据库系统中，很多系统的转换只能用内部动作来描述，所以更具有实际意义的通常是区分系统内部动作的弱互模拟和Branching互模拟。许多模型关于带有内部动作的互模拟等价关系判定问题都被证明是不可判定的\cite{Jancar2008}。然而，对于Branching互模拟的判定问题近两年得到了很大的突破。Normed BPP和Normed BPA上关于Branching互模拟等价的可判定性分别被证明\cite{CzerwiAski2011,Fu2013}。这两个结论是十分令人兴奋的，它们为Branching互模拟等价的相关研究开辟了新的道路。
+
+Finiteness的判定是一个和Regularity相似但是直观上更加容易的问题。因为该问题中有限状态系统是给定的，我们需要做的仅仅是判定它和给定系统是否等价。关于各种互模拟关系的Finitness问题通常都有多项式时间复杂度的快速解法。例如BPA和Normed BPP中关于弱互模拟和Branching互模拟的finiteness都有多项式时间算法\cite{Kucera2002,Fu2009}。即使没有多项式时间的算法，关于PDA，PA和PN关于强互模拟分别是PSPACE\cite{Kucera2002a}，co-NEXPTIME\cite{Goller2011}和可判定的\cite{Jancar1995a}。显然，通常这些问题都比对应的Equivalence Checking问题有着更好的计算复杂性和可判定性。而Regularity问题在某种意义上提供了联系这两个问题的一个桥梁：如果某个进程满足Regularity性质，那么我们就可以用更快速的Finiteness判定的算法来进行Equivalence Checking的工作。
+
+在现阶段，关于强互模拟关系的Regularity问题通常在可判定性上有了不错的结果。在BPA上关于强互模拟关系的Regularity问题被证明是2-EXPTIME的\cite{Burkart1995,Burkart1996},而对于BPP则是PSPACE完全的\cite{Kot2005a}。在PDA上，现阶段只证明了Normed条件下的可判定性，而且有一个多项式时间的算法\cite{Esparza2000}。关于PA，也仅在Normed条件下有一个多项式时间的算法\cite{Kucera1996}。而对于PN，我们有Regularity的可判定性,并且在引入内部动作后该问题变为不可判定的\cite{Jancar1995a}。
+
+在互模拟等价关系引入内部动作之后，我们现阶段已知的Regularity问题的可判定结论就十分有限了。现在唯一具有实际意义的结论就是由Fu在2013年证明的，关于Branching互模拟，在Normed BPA上Regularity问题的可判定性\cite{Fu2013}。
+
+为了简化模型，有的时候研究的模型可以加上Totally Normed条件。在该限定下关于弱互模拟和Branching互模拟的问题通常更好的可判定行结论或者算法。H\"{u}ttel最早在\cite{Huttel1992}中引入了该限定，并证明了Totally Normed BPP的Branching互模拟的可判定性。Chen也在这一限定条件下证明了Totally Normed BPA和Totally Normed BPP关于弱互模拟的可判定性\cite{Chen2008a,Chen2008}。
+
+\section{主要工作}
+\label{sec:contribution}
+
+本文主要针对关于引入内部动作的互模拟等级关系的Regularity问题进行了讨论。主要贡献可以分为一下几个方面：
+
+\begin{enumerate}
+	\item 给出了一些解决Regularity问题所用到的技术和引理。
+	\item 对Totally Normed PA关于弱互模拟和Branching互模拟关系的Regularity问题给出了一个多项式时间算法。证明了该算法的正确性，并做了复杂度分析。该算法的时间复杂度是$\mathscr{O}(n^3+mn)$的，其中$m$和$n$都是和输入模型相关的参数。该算法对PA的子模型BPA和BPP也成立。
+	\item 对Normed BPP关于Branching互模拟关系以及Totally Normed PN关于弱互模拟和Branching互模拟关系的Regularity问题进行了讨论，并为今后的进一步工作提供了一定的思路。
+\end{enumerate}
+
+本文的工作讨论的问题是属于无限状态系统验证领域中的一部分工作，和该领域中很多经典的问题都有交叉。在得到了关于Totally Normed PA上不错结论的同时，也提出了对后续问题的解决十分具有启发意义的思路。
+
+\section{章节安排}
+\label{sec:section}
+
+在本文的第二章中，将具体介绍本文讨论的问题所涉及到的进程重写系统中的各种模型以及所用到的各种互模拟等价关系；第三章中，将会介绍解决Regularity问题所需要用到的技术和一些引理；第四章中，将会给出Totally Normed PA关于弱互模拟和Branching互模拟的一个等价条件；第五章中，将会给出该问题的多项式时间算法，并做计算复杂性分析；第六章中，将对后续准备解决的问题决进行一些讨论；最后，将对全文的工作进行总结。
