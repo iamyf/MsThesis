@@ -33,14 +33,14 @@ X \stackrel{dec}{\longrightarrow} \epsilon.
 通过这个例子，我们可以直观的看出PRS中的BPA模型可以编码一个计数器。当然我们也可以通过更加复杂的编码来实现更加复杂工作的验证。我们下面给出PRS语法的定义和语义的规则。
 
 \begin{defn}[进程项 Process Term]\label{def:process-term}
-令$Act=\{a,b,\ldots\}$是一个\emph{原子动作(atomic actions)}的集合;$Const=\{\epsilon\}\cup\{X,Y,Z,\ldots\}$是一个 \emph{进程常量(process constants)}的集合。
-$S=\{\alpha_1,\alpha_2,\ldots\}$被称为\emph{进程项(process terms)}的集合，它被用来刻画系统的状态，可以由一下的BNF产生：
+令$Act=\{a,b,\ldots\}$是一个\emph{原子动作(Atomic Actions)}的集合;$Const=\{\epsilon\}\cup\{X,Y,Z,\ldots\}$是一个 \emph{进程常量(Process Constants)}的集合。
+$S=\{\alpha_1,\alpha_2,\ldots\}$被称为\emph{进程项(Process Terms)}的集合，它被用来刻画系统的状态，可以由一下的BNF产生：
 $$\alpha\Coloneqq \epsilon\mid X\mid \alpha_1.\alpha_2\mid \alpha_1\para \alpha_2$$
 其中
 \begin{itemize}
-\item $\epsilon$被称为\emph{空进程(empty process)}；
-\item $\alpha_1.\alpha_2$是一个\emph{串行(sequential)}进程；
-\item $\alpha_1\para \alpha_2$是一个\emph{并行(parallel)}进程。
+\item $\epsilon$被称为\emph{空进程(Empty Process)}；
+\item $\alpha_1.\alpha_2$是一个\emph{串行(Sequential)}进程；
+\item $\alpha_1\para \alpha_2$是一个\emph{并行(Parallel)}进程。
 \end{itemize}
 我们这里用小写希腊字母$\alpha,\beta,\gamma,\ldots$来表示进程项。
 \end{defn}
@@ -50,16 +50,16 @@ $$\alpha\Coloneqq \epsilon\mid X\mid \alpha_1.\alpha_2\mid \alpha_1\para \alpha_
 \begin{defn}[标号迁移系统 LTS]\label{def:lts}
 一个\emph{标号迁移系统(LTS)}是一个五元组$(S,Act,\longrightarrow,\alpha_0,F)$，其中
 \begin{itemize}
-    \item $S$是一个\emph{状态(states)}的有限集合，
-    \item $Act$是一个\emph{标号(labels)}的有限集合，
-    \item $\longrightarrow\;\subseteq S\times Act\times S$是一个\emph{转换关系(transition relation)}，
-    \item $\alpha_0\in S$是一个给定的\emph{初始状态(start state)}，
-    \item $F\subseteq S$是一个\emph{终结状态(final states)}的有限集合，这意味着对于任何$\alpha\in F$不存在$a\in Act$和$\beta\in S$使得$\alpha\stackrel{a}{\longrightarrow}\beta$。
+    \item $S$是一个\emph{状态(States)}的有限集合，
+    \item $Act$是一个\emph{标号(Labels)}的有限集合，
+    \item $\longrightarrow\;\subseteq S\times Act\times S$是一个\emph{转换关系(Transition Relation)}，
+    \item $\alpha_0\in S$是一个给定的\emph{初始状态(Start State)}，
+    \item $F\subseteq S$是一个\emph{终结状态(Final States)}的有限集合，这意味着对于任何$\alpha\in F$不存在$a\in Act$和$\beta\in S$使得$\alpha\stackrel{a}{\longrightarrow}\beta$。
 \end{itemize}
 我们通常将$(\alpha,a,\beta)\in \longrightarrow$记做$\alpha\stackrel{a}{\longrightarrow}\beta$。
 \end{defn}
 
-接下来就可以利用\emph{语义推导规则(inference rules)}来得到PRS模型的操作语义。LTS所定义的语义转换关系是由形如$\alpha\act{a}\beta$的规则的所构成的有限集合$\Delta$所生成的。对于任意$a\in Act$，语义迁移关系$\act{a}$是从以下的语义推导规则构造的最小的转换关系：
+接下来就可以利用\emph{语义推导规则(Inference Rules)}来得到PRS模型的操作语义。LTS所定义的语义转换关系是由形如$\alpha\act{a}\beta$的规则的所构成的有限集合$\Delta$所生成的。对于任意$a\in Act$，语义迁移关系$\act{a}$是从以下的语义推导规则构造的最小的转换关系：
 $$\begin{tabular}{cc}
 $\inference{\alpha\stackrel{a}{\longrightarrow}\beta\in\Delta}{\alpha\stackrel{a}{\longrightarrow}\beta}$&
 $\inference{\alpha\stackrel{a}{\longrightarrow}\alpha'}{\alpha.\beta\stackrel{a}{\longrightarrow}\alpha'.\beta}$ \\
@@ -72,10 +72,10 @@ $\inference{\alpha\stackrel{a}{\longrightarrow}\alpha'}{\alpha\para \beta\stackr
 
 PRS利用对语义规则中进程项类型的分类，分成了几个子模型。这些子模型大多可以和一些常用的进程模型所对应，它们之间有着一个关于互模拟关系表达能力包含关系的层次结构。这里我们首先先根据连结符，将进程项分为四类：
 \begin{enumerate}
-    \item $\mathbf{1}$: 仅仅由\emph{单个(single)}进程常量构成的项，形如$X$。
-    \item $\mathbf{S}$: 单个进程常量或者\emph{串行连结(sequential composition)}的进程常量构成的项，形如$X.Y.Z$。
-    \item $\mathbf{P}$: 单个进程常量或者\emph{并行连结(parallel composition)}的进程常量构成的项，形如$X\para Y\para Z$.
-    \item $\mathbf{G}$: 由任意串行或者并行连结的进程常量构成的项，如 $(X.(Y\para Z))\para W$。
+    \item $\mathbf{1}$: 仅仅由\emph{单个(Single)}进程常量构成的项，形如$X$。
+    \item $\mathbf{S}$: 单个进程常量或者\emph{串行连结(Sequential Composition)}的进程常量构成的项，形如$X.Y.Z$。
+    \item $\mathbf{P}$: 单个进程常量或者\emph{并行连结(Parallel Composition)}的进程常量构成的项，形如$X\para Y\para Z$.
+    \item $\mathbf{G}$: 由\emph{任意(General)}串行或者并行连结的进程常量构成的项，如 $(X.(Y\para Z))\para W$。
 \end{enumerate}
 下面我们将给出PRS的严格定义：
 \begin{defn}[进程重写系统 PRS]\label{def:prs}
@@ -89,9 +89,9 @@ PRS利用对语义规则中进程项类型的分类，分成了几个子模型�
 \end{itemize}
 一个 $(\mathbf{G},\mathbf{G})$-PRS即为一个一般的PRS.
 \end{defn}
-不失一般性，本文假定PRS的初始状态$\alpha_0$为一个单独常量进程项。
+不失一般性，本文假定一个PRS系统的初始状态$\alpha_0$均为一个单独常量进程项。
 
-分类了PRS中各种模型之后，我们可以得到图\ref{fig:prs}中的\emph{层次结构(hierarchy)}。接下来，将介绍本文研究中所涉及到的一些子模型。
+分类了PRS中各种模型之后，我们可以得到图\ref{fig:prs}中的\emph{层次结构(Hierarchy)}。接下来，将介绍本文研究中所涉及到的一些子模型。
 \begin{figure}
 \begin{center}
 \begin{tabular}{c}
@@ -111,21 +111,116 @@ PRS利用对语义规则中进程项类型的分类，分成了几个子模型�
 \subsection{PRS中的模型}
 \label{subsec:models}
 
+本小节中将按照PRS层次结构中自地向上的顺序依次介绍几个模型。
+\begin{enumerate}
+	\item $(\mathbf{1},\mathbf{1})$-PRS: \emph{有限状态自动机(Finite State Automaton 简称FS)}，也称作\emph{正则进程(Regular Process)}，产生的语言为\emph{正则语言(Regular Language)}。
+	\item $(\mathbf{1},\mathbf{S})$-PRS: \emph{基本进程代数(Basic Process Algebra 简称BPA)}，和\emph{上下文无关语法(Context-free Grammar)}等价。
+	\item $(\mathbf{S},\mathbf{S})$-PRS: 被证明和\emph{下推自动机(Pushdown Automaton 简称PDA)}等价，BPA是它的子模型，该模型也是程序分析领域中一个重要模型。以上两种为只允许串行连结符的进程模型。
+	\item $(\mathbf{1},\mathbf{P})$-PRS: \emph{基本并行进程(Basic Parallel Process 简称BPP)}，和\emph{可交换的上下文无关语法(Commutative Context-free Grammar)}等价。这里进程项虽然是用并行连结符连结的，但是并不允许进程间的交互操作。
+	\item $(\mathbf{P},\mathbf{P})$-PRS: 和\emph{Petri网(Petri Net 简称PN)}等价，BPP是它的子模型，该模型在验证领域有着广泛的应用。以上两种为仅允许并行连结符的进程模型。
+	\item $(\mathbf{1},\mathbf{G})$-PRS: \emph{进程代数(Process Algebra 简称PA)}，该模型同时允许两种连结符在进程项中出现，BPA和BPP都是它的子模型。在本文中将着重对其Regularity问题进行研究，所得的可判定性结论和算法对BPA和BPP都是适用的。
+	\item 对于PRS中的其它几种模型，由于其模型复杂性比较高，且等价性通常被证明是不可判定的。所以现阶段仅仅对其\emph{可达性(Reachability}进行了研究，这里由于篇幅所限，就不加以深入讨论了。
+\end{enumerate}
+在本文中余下的部分，为了方便表示，如果不加说明，都将使用简称来代替相应的模型。
 
 \section{互模拟等价关系}
 \label{sec:bis}
 
+在使用形式化方法进行无限状态系统验证问题的研究中，一个十分基本的问题就是对\emph{等价关系(Equivalence Relation}的选取。等价关系是可以用来地刻画两个系统的相等性的关系。一个合适的等价关系应该关于人们对系统的要求是\emph{可靠(Sound)}且\emph{完备(Complete)}的，这两条性质是模型对等价关系正确性的基本要求。除此以外，等价关系的在计算上的可判定性也在其选择中扮演了重要角色。我们知道，尽管\emph{同构(Isomophsm)}或者\emph{语言等价(Language Equivalence)}都是十分直观的等价关系。但是同构并不能包含我们所需要的所有互相等价的进程对，即不满足完备性，另一方面，它在计算复杂性上也是NP完全的；而语言等价虽然是很严格的等价关系，但是它是不可判定的\cite{Hopcroft1979}。
+
+一个看似不错的选择是\emph{语义等价(Semantic Equivalence)}，van Glabbeek在\cite{Glabbeek1990}对语义等价进行了详细的总结，\emph{互模拟等价(Bisimulation Equivalence)}是语义等价的一种。在观测理论中，人们通常利用互模拟的概念来定义等价关系，互模拟等价关系所关心的是从观测者的角度是否能区分进程间的不同。我们选择它进行研究，还因为互模拟等价关系的判定在计算上通常都有更好的\emph{可行性(Feasibility)}，同时它也找到一个十分美妙的\emph{博弈论(Game Theoretical)}的刻画。这些良好的性质都为我们的理论研究和实际应用提供了方法上的启发和方向上的引导。
+
 \subsection{强互模拟关系}
 \label{subsec:strong-bis}
+
+最初的互模拟等价关系是由Park提出的\emph{强互模拟(Strong Bisimilarity)}关系\cite{Park1981}。强互模拟关系是一个通过归纳法进行定义的关系，在博弈论的角度，它假设有一个\emph{防守者(Duplicator)}和一个\emph{破坏者(Spoiler)}，是否能在有限轮的游戏中区分出两个进程的不同。
+
+下面给出强互模拟关系的定义：
+\begin{defn}[强互模拟关系Strong Bisimilarity]\label{def:strong-bis}
+一个关于标号迁移系统中状态的二元关系$\mathcal{R}$是一个\emph{强互模拟关系(Strong Bisimulation)}当且仅当对任意$(\alpha,\beta)\in \mathcal{R}$，我们有：
+\begin{itemize}
+    \item 如果$\alpha\stackrel{a}{\longrightarrow}\alpha'$那么存在$\beta'$，使得$\beta\stackrel{a}{\longrightarrow}\beta'$，且有$(\alpha',\beta')\in\mathcal{R}$。
+    \item 如果$\beta\stackrel{a}{\longrightarrow}\beta'$那么存在$\alpha'$，使得$\alpha\stackrel{a}{\longrightarrow}\alpha'$，且有$(\alpha',\beta')\in\mathcal{R}$。
+\end{itemize}
+如果对于某些强互模拟关系$\mathcal{R}$，我们有$(\alpha,\beta)\in \mathcal{R}$，那么称$\alpha$和$\beta$是强互模拟等价(Strong Bisimulation Equivalent)的或强互模拟(Strong Bisimilar)的, 记做$\alpha\seq\beta$。
+
+$\seq=\bigcup\{\mathcal{R}:\mathcal{R}\mbox{ 是一个强互模拟关系}\}$，是最大的强互模拟关系(Strong Bisimilarity)。
+\end{defn}
+
+在\ref{sec:state-of-the-art}中，我们提到了强互模拟关系验证的相关问题通常有着不错的可判定性或者算法复杂性结论。在观测理论中，由于强互模拟关系的简洁性，也是人们在最初的研究中最感兴趣的等价关系。不过我们注意到，在强互模拟关系的定义中，我们并不考虑系统中的动作是否能被外界观测到。从某种意义上来说，强互模拟关系有点太``强''了，因为每一个动作都会被用来区分进程的等价性，即使这个动作是外界观测不到的甚至是不改变系统状态的。
 
 \subsection{考虑内部动作的互模拟关系}
 \label{subsec:silent-bis}
 
+基于上一节定义的强互模拟关系，为了更精确的刻画进程间的等价，Milner在等价关系的定义中引入了系统\emph{内部动作(Silent Actions)}，定义了\emph{弱互模拟关系(Weak Bisimilarity)}\cite{Milner1989}。它忽略了系统内部动作对观测的影响，使得等价关系的对进程间的区分更``弱''了。而van Glabbeek和Weijland为了更精确地区分系统内部动作对系统状态的影响，定义了\emph{Branching互模拟关系(Branching Bisimilarity)}\cite{Glabbeek1996}。它仅仅忽略了不影响系统状态的内部动作，是一个更加精确和合理的等价关系。
+
+为了给出这两种等价关系的形式化定义，我们做如下规定：
+\begin{itemize}
+    \item 我们用符号$\tau$来表示所有系统内部动作，令$Act=\{a,b,c,\ldots\}\cup\{\tau\}$。$\ell$属于$Act$，$\ell^{*}$属于$Act^{*}$。
+
+    \item 我们用$\Longrightarrow$来表示$\act{\tau}$的自反传递闭包(Reflexive Transitive Closure)。$\Act{\widehat{\ell}}$用来表示$\Act{}\act{\ell}\Act{}$，如果$\ell\not=\tau$，否则表示$\Longrightarrow$。
+\end{itemize}
+
+接下来给出弱互模拟和Branching互模拟的定义：
+\begin{defn}[弱互模拟关系 Weak Bisimilarity]\label{def:weak-bis}
+一个关于标号迁移系统中状态的二元关系$\mathcal{R}$是一个\emph{弱互模拟关系(Weak Bisimulation)}当且仅当对任意$(\alpha,\beta)\in \mathcal{R}$，我们有：
+\begin{itemize}
+   \item 如果$\alpha\stackrel{a}{\longrightarrow}\alpha'$，那么存在$\beta'$，使得$\beta\Act{\widehat{a}}\beta'$，且有$(\alpha',\beta')\in\mathcal{R}$。
+   \item 如果$\beta\stackrel{a}{\longrightarrow}\beta'$，那么存在$\alpha'$，使得$\alpha\Act{\widehat{a}}\alpha'$，且有$(\alpha',\beta')\in\mathcal{R}$。
+\end{itemize}
+最大的弱互模拟关系(Weak Bisimilarity)记做$\weq$。
+\end{defn}
+
+\begin{defn}[Branching互模拟关系 Branching Bisimilarity]\label{def:bra-bis}
+一个关于标号迁移系统中状态的二元关系$\mathcal{R}$是一个\emph{Branching互模拟关系(Branching Bisimulation)}当且仅当对任意$(\alpha,\beta)\in \mathcal{R}$，我们有：
+\begin{itemize}
+    \item 如果$\alpha\stackrel{a}{\longrightarrow}\alpha'$，那么以下两个命题之一成立：
+    \begin{itemize}
+        \item $a=\tau$，且$(\alpha',\beta)\in\mathcal{R}$；
+        \item 存在$\beta^{''}$，使得$\beta\Act{}\beta^{''}$，满足$(\alpha,\beta^{''})\in\mathcal{R}$，且存在$\beta'$，有$\beta^{''}\stackrel{a}{\longrightarrow}\beta'$，满足$(\alpha',\beta')\in\mathcal{R}$。
+    \end{itemize}
+    \item 如果$\beta\stackrel{a}{\longrightarrow}\beta'$，那么以下两个命题之一成立：
+    \begin{itemize}
+        \item $a=\tau$，且 $(\alpha,\beta')\in\mathcal{R}$；
+        \item 存在$\alpha^{''}$，使得$\alpha\Act{}\alpha^{''}$，满足$(\alpha^{''},\beta)\in\mathcal{R}$，且存在$\alpha'$，有$\alpha^{''}\stackrel{a}{\longrightarrow}\alpha'$，满足$(\alpha',\beta')\in\mathcal{R}$。
+    \end{itemize}
+\end{itemize}
+最大的Branching互模拟关系(Branching Bisimilarity)记做$\beq$。
+\end{defn}
+
+可以看出，弱互模拟在模拟的过程中忽略了所有内部动作对观测造成的影响，要求相对``宽松''。而Branching互模拟从某种意义上来说更加精确地分析了不同内部动作的区别，系统在模拟的过程中可以先经过一系列不改变状态的内部动作，然后进行模拟。这种Branching互模拟关系在模拟路径上除最后一步都需要满足不改变系统状态，更加符合实际应用中我们遇到的系统，例如程序优化的过程中，我们也仅能忽略不改变程序状态的内部语句，而不能忽略会对程序结果造成影响的语句。
+
+在为等价关系的刻画带来精确性的同时，引入内部动作也会增加相应的验证问题的难度，但是如果要使得形式化验证的理论真正能应用在实际的系统中，对内部动作的考虑是不可避免的。
+
 \section{无限状态系统验证问题}
 \label{sec:verfication}
 
-\subsection{几个问题}
-\label{subsec:prob}
+本节将给出无限状态系统验证问题的严格定义，我们进行这方面研究的目标。
+\begin{defn}[问题定义]\label{def:prob}
+这里我们给出3类问题的严格定义
+\begin{itemize}	
+	\item $\mathsf{Equivalence\,Checking}$\\
+	输入：两个进程$\alpha,\beta$，一个等价关系$\cong$\\
+	问题：$\alpha\cong\beta$？	
+	\item $\mathsf{Finitness}$\\
+	输入：一个进程$\alpha$，一个FS $\gamma$，一个等价关系$\cong$\\
+	问题：$\alpha\cong\gamma$？
+	\item $\mathsf{Regularity}$\\
+	输入：一个进程$\alpha$，一个等价关系$\cong$\\
+	问题：是否存在FS $\gamma$，满足$\alpha\cong\gamma$？
+\end{itemize}
+\end{defn}
 
-\subsection{研究目标}
-\label{subsec:goal}
+举几个在实际应用中的例子，Equivalence Checking解决的是一个实现(Implementation)是否能满足需求(Specification)，因为往往这两者都是由某种无限状态系统表示的；而Finiteness解决了一个硬件系统(Hardware Design)是否满足需求，因为硬件系统都是有限的。而Regularity则解决了需求到底能不能被硬件系统实现。
+
+通过第\ref{chap:intro}章中的介绍，我们知道这3类问题是有着紧密的内部联系的。而Regularity问题也是联系另外两类问题的一个桥梁。如果能有效地判定一个进程的Regularity性质，那么往往能根据Finiteness问题的已有结论，得到更快速的Equivalence Checking算法。
+本章最后我们将介绍一下我们研究等价验证问题的目标，给定一个问题，我们希望能证明
+	 
+可判定性(Decidable)？
+	\begin{itemize}
+		\item 可判定，那么我们寻找它的相关算法(Algorithm)，证明其计算复杂性(Complexity)的上界(Upper Bound)和下界(Lower Bound)。
+		\item 不可判定，那么我们探究其不可判定的难度。
+	\end{itemize}
+我们总是希望能得到完备(Completeness)的结论。
+
+

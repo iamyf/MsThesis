@@ -10,7 +10,7 @@
 
 在这些计算模型的研究中，涉及到一个计算机科学中十分重要的领域：形式化验证(Formal Verification)。而这些计算模型，大多数都可以描述无限状态系统。对无限状态系统的形式化验证(Verification on Infinite State Systems)，是现今理论计算机科学中的一个热门的研究方向，它包含了一系列具有重要意义的研究课题。这些问题往往可以与可计算理论(Computability), 计算复杂性理论(Computational Complexity)，算法(Algorithm)等领域中的一些经典问题相联系起来，从而得出许多振奋人心的可计算性或复杂性结论。
 
-为了对这些模型进行验证，我们需要选择合适的等价关系(Equivalence Relation)。人们最初研究的等价关系是语言等价(Language Equivalence)，然而即使对于上下文无关语言(Context Free Language)，其语言等价也是不可判定的\cite{Hopcroft1979}。而不可判定的等价关系从验证角度来说是用处不大的。于是许多基于观测理论(Observation Theory) 中互模拟(Bisimulation) 概念的等价关系被提出，最早的是由 Park 提出的强互模拟(Strong Bisimulation)\cite{Park1981}。随后，为了区别系统中内部动作和外部动作，Milner引入了$\tau$动作表示系统内部的转换，并且定义了弱互模拟(Weak Bisimulation)\cite{Milner1989}。为了更加精细地区分$\tau$动作对系统状态的影响，van Glabbeek和 Weijland提出了Branching 互模拟(Branching Bisimulation)\cite{Glabbeek1996}。这些基于互模拟的等价关系，是研究验证问题的理论基础。
+为了对这些模型进行验证，我们需要选择合适的等价关系(Equivalence Relation)。人们最初研究的等价关系是语言等价(Language Equivalence)，然而即使对于上下文无关语言(Context Free Language)，其语言等价也是不可判定的\cite{Hopcroft1979}。而不可判定的等价关系从验证角度来说是用处不大的。于是许多基于观测理论(Observation Theory) 中互模拟(Bisimulation) 概念的等价关系被提出，最早的是由 Park 提出的强互模拟(Strong Bisimulation)\cite{Park1981}。随后，为了区别系统中内部动作和外部动作，Milner引入了$\tau$动作表示系统内部的转换，并且定义了弱互模拟(Weak Bisimulation)\cite{Milner1989}。为了更加精细地区分$\tau$动作对系统状态的影响，van Glabbeek和 Weijland提出了Branching 互模拟(Branching Bisimilarity)\cite{Glabbeek1996}。这些基于互模拟的等价关系，是研究验证问题的理论基础。
 
 在研究无限状态系统时，系统的模型可以使用进程(Process)进行表示。对于各种不同种类的无限状态系统，都可以利用一个统一的进程代数模型进行表示，即进程重写系统(Process Rewrite System, 简称PRS)\cite{Mayr2000}。PRS是一个具有一般性的进程模型，它提供不同模型的关于强互模拟的表达能力的层次结构。许多常见的进程代数模型都可以在这个层次结构中找到。
 
@@ -53,4 +53,4 @@ Finiteness的判定是一个和Regularity相似但是直观上更加容易的问
 \section{章节安排}
 \label{sec:section}
 
-在本文的第二章中，将具体介绍本文讨论的问题所涉及到的进程重写系统中的各种模型以及所用到的各种互模拟等价关系；第三章中，将会介绍解决Regularity问题所需要用到的技术和一些引理；第四章中，将会给出Totally Normed PA关于弱互模拟和Branching互模拟的一个等价条件；第五章中，将会给出该问题的多项式时间算法，并做计算复杂性分析；第六章中，将对后续准备解决的问题决进行一些讨论；最后，将对全文的工作进行总结。
+在本文的第二章中，将具体介绍本文讨论的问题所涉及到的进程重写系统中的各种模型以及所用到的各种互模拟等价关系；第三章中，将会介绍Regularity问题一些已有的结论和解决Regularity问题所需要用到的技术和一些引理；第四章中，将会给出Totally Normed PA关于弱互模拟和Branching互模拟的一个等价条件；第五章中，将会给出该问题的多项式时间算法，并做计算复杂性分析；第六章中，将对后续准备解决的问题决进行一些讨论；最后，将对全文的工作进行总结。
