@@ -1,12 +1,16 @@
 %%==================================================
 \chapter{背景知识}
-\label{chap:background}
+\label{chap:pre}
+
+在这一部分，我们首先介绍一下研究PRS上Regularity问题的背景知识。包括相关的模型和一些有趣的互模拟等价关系，以及研究无限状态系统验证的几个基本问题和目标。
 
 \section{进程重写系统 PRS}
-\label{sec-prs}
+\label{sec:prs}
 
 \subsection{基本定义}
-进程重写系统(PRS)是一个可以用来刻画进程模型语义的一般系统，这一部分我们会给出关于进程重写系统的一些基本定义。
+\label{subsec:basic-def}
+
+进程重写系统(PRS)是一个可以用来刻画进程模型语义的一般系统，这一部分我们会给出关于进程重写系统的一些基本定义。\cite{Mayr2000}
 
 在此之前，我们可以分析一个进程代数中的例子\cite{Milner1989}，以下定义了一个计数器(Counter Machine)的\emph{需求(Specification)}。
 \begin{eqnarray*}
@@ -28,7 +32,7 @@ X \stackrel{dec}{\longrightarrow} \epsilon.
 \]
 通过这个例子，我们可以直观的看出PRS中的BPA模型可以编码一个计数器。当然我们也可以通过更加复杂的编码来实现更加复杂工作的验证。我们下面给出PRS语法的定义和语义的规则。
 
-\begin{defn}[进程项 Process Term]\label{def-process term}
+\begin{defn}[进程项 Process Term]\label{def:process-term}
 令$Act=\{a,b,\ldots\}$是一个\emph{原子动作(atomic actions)}的集合;$Const=\{\epsilon\}\cup\{X,Y,Z,\ldots\}$是一个 \emph{进程常量(process constants)}的集合。
 $S=\{\alpha_1,\alpha_2,\ldots\}$被称为\emph{进程项(process terms)}的集合，它被用来刻画系统的状态，可以由一下的BNF产生：
 $$\alpha\Coloneqq \epsilon\mid X\mid \alpha_1.\alpha_2\mid \alpha_1\para \alpha_2$$
@@ -43,7 +47,7 @@ $$\alpha\Coloneqq \epsilon\mid X\mid \alpha_1.\alpha_2\mid \alpha_1\para \alpha_
 
 有了进程项的定义，对于一个进程演算系统，就定义它的\emph{操作语义(Operational Semantics)}。这里，我们使用\emph{标号迁移系统(Labeled Transition System 简称LTS)}来定义PRS中的模型所遵循的语义规则。
 
-\begin{defn}[标号迁移系统 LTS]\label{def-lts}
+\begin{defn}[标号迁移系统 LTS]\label{def:lts}
 一个\emph{标号迁移系统(LTS)}是一个五元组$(S,Act,\longrightarrow,\alpha_0,F)$，其中
 \begin{itemize}
     \item $S$是一个\emph{状态(states)}的有限集合，
@@ -63,6 +67,47 @@ $\inference{\alpha\stackrel{a}{\longrightarrow}\alpha'}{\alpha.\beta\stackrel{a}
 $\inference{\alpha\stackrel{a}{\longrightarrow}\alpha'}{\alpha\para \beta\stackrel{a}{\longrightarrow}\alpha'\para \beta}$ & $\inference{\beta\stackrel{a}{\longrightarrow}\beta'}{\alpha\para \beta\stackrel{a}{\longrightarrow}\alpha\para \beta'}$
 \end{tabular}$$
 
+\subsection{层次结构}
+\label{subsec:hierarchy}
+
+PRS利用对语义规则中进程项类型的分类，分成了几个子模型。这些子模型大多可以和一些常用的进程模型所对应，它们之间有着一个关于互模拟关系表达能力包含关系的层次结构。这里我们首先先根据连结符，将进程项分为四类：
+\begin{enumerate}
+    \item $\mathbf{1}$: 仅仅由\emph{单个(single)}进程常量构成的项，形如$X$。
+    \item $\mathbf{S}$: 单个进程常量或者\emph{串行连结(sequential composition)}的进程常量构成的项，形如$X.Y.Z$。
+    \item $\mathbf{P}$: 单个进程常量或者\emph{并行连结(parallel composition)}的进程常量构成的项，形如$X\para Y\para Z$.
+    \item $\mathbf{G}$: 由任意串行或者并行连结的进程常量构成的项，如 $(X.(Y\para Z))\para W$。
+\end{enumerate}
+下面我们将给出PRS的严格定义：
+\begin{defn}[进程重写系统 PRS]\label{def:prs}
+令$\Xi,\Pi\in\{\mathbf{1},\mathbf{S},\mathbf{P},\mathbf{G}\}$.
+一个\emph{$(\Xi,\Pi)$-PRS}是一个满足如下条件的规则集合$\Delta$：
+对于每条规则$\alpha \stackrel{a}{\longrightarrow} \beta\in \Delta$有
+\begin{itemize}
+	\item $\alpha\in\Xi\setminus \{\epsilon\}$，
+	\item $\beta\in\Pi$，
+	\item 系统的初始状态由一个进程项$\alpha_0\in\Xi$给定。
+\end{itemize}
+一个 $(\mathbf{G},\mathbf{G})$-PRS即为一个一般的PRS.
+\end{defn}
+不失一般性，本文假定PRS的初始状态$\alpha_0$为一个单独常量进程项。
+
+分类了PRS中各种模型之后，我们可以得到图\ref{fig:prs}中的\emph{层次结构(hierarchy)}
+\begin{figure}
+\begin{center}
+\begin{tabular}{c}
+\xymatrix{
+& \mathsf{PRS}\; (\mathbf{G},\mathbf{G})\ar@{-}[dl] \ar@{-}[dr] & \\
+\mathsf{PAD}\; (\mathbf{S},\mathbf{G}) \ar@{-}[d] \ar@{-}[dr] &  & \mathsf{PAN}\; (\mathbf{P},\mathbf{G}) \ar@{-}[d] \ar@{-}[dl]\\
+\mathsf{PDA}\; (\mathbf{S},\mathbf{S}) \ar@{-}[d] & \mathsf{PA}\; (\mathbf{1},\mathbf{G})\ar@{-}[dl] \ar@{-}[dr] & \mathsf{PN}\; (\mathbf{P},\mathbf{P}) \ar@{-}[d]\\
+\mathsf{BPA}\; (\mathbf{1},\mathbf{S}) \ar@{-}[dr]&  & \mathsf{BPP}\; (\mathbf{1},\mathbf{P}) \ar@{-}[dl]\\
+ & \mathsf{FS}\; (\mathbf{1},\mathbf{1}) & \\
+}
+\end{tabular}
+\end{center}
+\caption{\textsf{PRS}层次结构 PRS-Hierarchy}
+\label{fig:prs}
+\end{figure}
+
 \section{互模拟等价关系}
-\label{sec-bis}
+\label{sec:bis}
 
