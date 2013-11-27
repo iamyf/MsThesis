@@ -3,11 +3,201 @@
 \chapter{相关结论和技术}
 \label{chap:relat}
 
-\section{PRS上Regularity研究现状}
+为了能更好的研究PRS上的Regularity问题，本章中我们首先将引入一个无限状态系统验证问题中常常用到的重要限定条件，Normed进程，同时我们会对该限定做进一步的规定，并给出Totally Normed进程。之后我们将介绍PRS上Regularity问题现阶段我们已知的结论，并进行归纳和总结，并得到一些推论。最后将介绍一些PRS上证明Regularity问题所用到的一些技术和引理。
+
+
+\section{Normed条件}
+\label{sec:norm}
+ 
+在无限状态系统验证问题中，我们常常要对所研究的模型做一些合理的限定，以便使该模型满足一些我们所需要的性质，从而可以得到更好的可判定行或者算法复杂性的结论。从研究语言理论的角度出发，我们经常要求模型是\emph{Normed}。从直观上来说，一个Normed进程可以通过有限步转换到达一个$\epsilon$进程。如果做进一步限定，Totally Normed进程则不仅要满足Normed性质，而且到达$\epsilon$进程至少要经过一个可见动作。(Totally) Normed进程的定义为：
+
+\begin{defn}[(Totally) Normed 进程 (Totally)Normed Process]\label{def:norm}
+一个进程项$\alpha$的Norm，记做$\|\alpha\|$，表示从$\alpha$能达到$\epsilon$的转换序列的最短长度，如果考虑弱互模拟，则不考虑$\tau$动作。
+
+我们称一个进程项$\alpha$是Normed，如果满足$0\leq\|\alpha\|<\infty$，称它是Totally Normed，如果满足$0<\|\alpha\|<\infty$。
+一个Normed PRS进程$\Delta$中所有的进程变量均是Normed。
+类似的，一个Totally Normed PRS进程$\Delta$中所有的进程变量均是Totally Normed。
+\end{defn}
+
+Normed条件规定了一个进程只能做有限个减少Norm的动作，满足该条件的进程往往会满足一些美妙的分解性质。而Totally Normed条件则进一步限定了进程做$\tau$动作的限制，没有进程项能只做$\tau$动作就变空。Totally Normed限定也是十分合理的，在现实系统中通常也不需要定义，或者通过一些技巧来规避那种``悄无声息''就消失的进程。这些限定在研究考虑内部动作的互模拟关系的验证问题时，发挥了很大的作用。
+
+为了表达的简洁性，我们在相关模型前加上n和tn分别作为Normed和Totally Normed的简称。例如Normed BPA简称为nBPA，而Totally Normed PA简称为tnPA。
+
+\section{PRS上Regularity问题现有结论总结}
 \label{sec:prs-reg-result}
 
-\section{Normed限定}
-\label{sec:norm}
+本节将根据不同的PRS子模型，分别总结其现有的关于强互模拟，弱互模拟和Branching互模拟的Regularity问题的结论，并根据问题的相似性，直接给出一些推论。根据定义\ref{def:prob}中给出的记号，我们将三类问题分别及做$\seq_{REG},\,\weq_{REG}$和$\beq_{REG}$。
 
-\section{相关引理}
+表\ref{tab:bpa-reg}为BPA上的结论总结，表中如果出现两行则分别表示该问题已知的复杂度上界和下界。``?''表示该问题还未被解决。
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+		&\BPA 			& \nBPA \\ 
+\hline
+\hline
+$\sim_{REG}$ 	&\begin{tabular}{c} 
+		Decidable~\cite{Burkart1995,Burkart1996} \\
+		PSPACE-hard~\cite{Srba2002b} 
+		\end{tabular} 		
+					& NL-complete~\cite{Srba2002b}\cite{Kucera1996} \\ 
+\hline
+$\beq_{REG}$	&\begin{tabular}{c} ? 
+		\\
+		EXPTIME-hard~\cite{Mayr2003} 
+		\end{tabular} 
+					& Decidable~\cite{Fu2013} \\
+\hline
+$\weq_{REG}$ 	&\begin{tabular}{c} ? 
+		\\
+		EXPTIME-hard~\cite{Mayr2003} 
+		\end{tabular} 
+					&\begin{tabular}{c} ? 
+					\\ 
+					NP-hard~\cite{Srba2003,StriAbra1998} 
+					\end{tabular} \\ 
+\hline
+\end{tabular}
+\caption{\textsf{BPA} Regularity 问题现有结论}
+\label{tab:bpa-reg}
+\end{center}
+\end{table}
+
+其中由Fu证明的$nBPA$上$\beq_{REG}$问题的可判定行结论是现在唯一已知的考虑系统内部动作的互模拟等价关系的Regularity问题结论。
+
+表\ref{tab:bpp-reg}总结了BPP上的已知结论
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|c|c|c|} 
+\hline
+		&BPP			&nBPP \\ 
+\hline
+\hline
+$\seq$		&
+		PSPACE-complete~\cite{Kot2005a,Jancar1996,Srba2002a} 
+					&\begin{tabular}{c} 
+					NL~\cite{Kucera1996} \\ 
+					NL-hard~\cite{Srba2002a} 
+					\end{tabular} \\ 
+\hline
+$\beq$		& ? 			&? \\ 
+\hline
+$\weq$		&\begin{tabular}{c} 
+		? \\ 
+		PSPACE-hard~\cite{Srba2003} 
+		\end{tabular}		&\begin{tabular}{c} 
+					? \\ 
+					PSPACE-hard~\cite{Srba2003} 
+					\end{tabular} \\ 
+\hline
+\end{tabular}
+\end{center}
+\caption{\textsf{BPP} Regularity 问题现有结论}
+\label{tab:bpp-reg}
+\end{table}
+
+在BPP上，我们已经有了$\seq_{REG}$的PSPACE完全性结论。这里利用到了一种在BPP中常用的DD-Function的技术，来对BPP的等价类进行划分，但是，对$\weq$和$\beq$，DD-Function并不适用，所以我们还需要寻找其他技术来证明其可判定行。
+
+表\ref{tab:pda-reg}为PDA上的现有结论
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|c|c|c|} 
+\hline
+		&PDA		&nPDA \\ 
+\hline
+\hline
+$\seq$ 		&\begin{tabular}{c} 
+		? \\ 
+		EXPTIME-hard~\cite{Kucera2002a,Srba2002b} 
+		\end{tabular} 	& \begin{tabular}{c} 
+				P~\cite{Esparza2000} \\ 
+				NL-hard~\cite{Srba2002b} 
+				\end{tabular} \\ 
+\hline
+$\beq$		& ? 		& ? \\ 
+\hline
+$\weq$ 		&\begin{tabular}{c} 
+		? \\ 
+		EXPTIME-hard~\cite{Kucera2002a,Srba2002b}
+		\end{tabular} 	& \begin{tabular}{c} 
+				? \\ 
+				EXPTIME-hard~\cite{Kucera2002a,Srba2002b} \end{tabular} \\ 
+\hline
+\end{tabular}
+\end{center}
+\caption{\textsf{PDA} Regularity 问题现有结论}
+\label{tab:pda-reg}
+\end{table}
+
+在PDA上，我们似乎还没有找到一些好的方法来处理Regularity问题，即使对$\seq_{REG}$。
+
+表\ref{tab:pn-reg}总结了PN上的现有结论
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|c|c|c|} 
+\hline
+		&PN			&nPN \\ 
+\hline
+\hline
+$\seq$ 		&\begin{tabular}{c} 
+		Decidable~\cite{Jancar1996} \\ 
+		PSPACE-hard~\cite{Srba2002a} 
+		\end{tabular}		&\begin{tabular}{c} 
+					EXPSAPCE~\cite{Rackoff1978} \\ 
+					EXPSPACE-hard~\cite{Cardoza1976} 
+					\end{tabular} \\ 
+\hline
+$\beq$ 		&Undecidable*	&? \\ 
+\hline
+$\weq$ 		&\begin{tabular}{c} 
+		Undecidable~\cite{Jancar1996} \\ 
+		EXPSPACE-hard~\cite{Cardoza1976} 
+		\end{tabular} 		&\begin{tabular}{c} 
+					? \\ 
+					EXPSPACE-hard~\cite{Cardoza1976} 
+					\end{tabular} \\ 
+\hline
+\end{tabular}
+\end{center}
+\caption{\textsf{PN} Regularity 问题现有结论}
+\label{tab:pn-reg}
+\end{table}
+
+这里我们注意＊所标的结论，即PN上$\beq_{REG}$的不可判定性并未直接在引用论文中出现，而是本文作者经过考证和与人讨论，将$\weq_{REG}$不可判定性的证明技术，应用到$\beq_{REG}$上，得出的一个引文\cite{Jancar1996}的推论。
+
+\begin{cor}[PN $\beq_{REG}$ 的不可判定性]\label{cor:pn-beq-und}
+PN的$\beq_{REG}$问题是不可判定(Undecidable)的。
+\end{cor}
+
+最后表\ref{tab:pa-reg}将总结PA上的相关结论，因为我们将要研究的问题是tnPA上的，所以这里同时还总结了tnPA上的结论
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+	&PA	&nPA	&tnPA\\
+\hline
+\hline
+\multirow{2}{*}{$\seq_{reg}$} &
+ ? &NL~\cite{Kucera1996} &NL~\cite{Kucera1996} \\
+& PSPACE-hard~\cite{Srba2002a} & NL-hard~\cite{Srba2002a} & NL-hard~\cite{Srba2002a}\\
+\hline
+\multirow{2}{*}{$\beq_{reg}$} &
+ ? & ? &P* \\
+& EXIPTIME-hard~\cite{Mayr2003} & PSPACE-hard~\cite{Srba2003} & NL-hard~\cite{Srba2002a}\\
+\hline
+\multirow{2}{*}{$\weq_{reg}$} &
+ ? & ? &P* \\
+& EXPTIME-hard~\cite{Mayr2003} & PSPACE-hard~\cite{Srba2003} & NL-hard~\cite{Srba2002a}\\
+\hline
+\end{tabular}
+\caption{\textsf{PA} Regularity 问题现有结论}
+\label{tab:pa-reg}
+\end{center}
+\end{table}
+
+其中＊所标的两个多项式时间判定算法为本文的主要结论，该结论同样适用于PA的子模型tnBPA和tnBPP。
+\section{相关技术路线和引理}
 \label{sec:lemma}

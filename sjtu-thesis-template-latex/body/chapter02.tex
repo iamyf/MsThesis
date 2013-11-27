@@ -92,7 +92,7 @@ PRS利用对语义规则中进程项类型的分类，分成了几个子模型�
 不失一般性，本文假定一个PRS系统的初始状态$\alpha_0$均为一个单独常量进程项。
 
 分类了PRS中各种模型之后，我们可以得到图\ref{fig:prs}中的\emph{层次结构(Hierarchy)}。接下来，将介绍本文研究中所涉及到的一些子模型。
-\begin{figure}
+\begin{figure}[htdp]
 \begin{center}
 \begin{tabular}{c}
 \xymatrix{
@@ -147,7 +147,7 @@ PRS利用对语义规则中进程项类型的分类，分成了几个子模型�
 $\seq=\bigcup\{\mathcal{R}:\mathcal{R}\mbox{ 是一个强互模拟关系}\}$，是最大的强互模拟关系(Strong Bisimilarity)。
 \end{defn}
 
-在\ref{sec:state-of-the-art}中，我们提到了强互模拟关系验证的相关问题通常有着不错的可判定性或者算法复杂性结论。在观测理论中，由于强互模拟关系的简洁性，也是人们在最初的研究中最感兴趣的等价关系。不过我们注意到，在强互模拟关系的定义中，我们并不考虑系统中的动作是否能被外界观测到。从某种意义上来说，强互模拟关系有点太``强''了，因为每一个动作都会被用来区分进程的等价性，即使这个动作是外界观测不到的甚至是不改变系统状态的。
+在小节\ref{sec:state-of-the-art}中，我们提到了强互模拟关系验证的相关问题通常有着不错的可判定性或者算法复杂性结论。在观测理论中，由于强互模拟关系的简洁性，也是人们在最初的研究中最感兴趣的等价关系。不过我们注意到，在强互模拟关系的定义中，我们并不考虑系统中的动作是否能被外界观测到。从某种意义上来说，强互模拟关系有点太``强''了，因为每一个动作都会被用来区分进程的等价性，即使这个动作是外界观测不到的甚至是不改变系统状态的。
 
 \subsection{考虑内部动作的互模拟关系}
 \label{subsec:silent-bis}
@@ -199,13 +199,13 @@ $\seq=\bigcup\{\mathcal{R}:\mathcal{R}\mbox{ 是一个强互模拟关系}\}$，�
 \begin{defn}[问题定义]\label{def:prob}
 这里我们给出3类问题的严格定义
 \begin{itemize}	
-	\item $\mathsf{Equivalence\,Checking}$\\
+	\item $\mathsf{Equivalence\,Checking}\,\cong$\\
 	输入：两个进程$\alpha,\beta$，一个等价关系$\cong$\\
 	问题：$\alpha\cong\beta$？	
-	\item $\mathsf{Finitness}$\\
+	\item $\mathsf{Finitness}\,\cong_{FS}$\\
 	输入：一个进程$\alpha$，一个FS $\gamma$，一个等价关系$\cong$\\
 	问题：$\alpha\cong\gamma$？
-	\item $\mathsf{Regularity}$\\
+	\item $\mathsf{Regularity}\,\cong_{REG}$\\
 	输入：一个进程$\alpha$，一个等价关系$\cong$\\
 	问题：是否存在FS $\gamma$，满足$\alpha\cong\gamma$？
 \end{itemize}
@@ -214,6 +214,7 @@ $\seq=\bigcup\{\mathcal{R}:\mathcal{R}\mbox{ 是一个强互模拟关系}\}$，�
 举几个在实际应用中的例子，Equivalence Checking解决的是一个实现(Implementation)是否能满足需求(Specification)，因为往往这两者都是由某种无限状态系统表示的；而Finiteness解决了一个硬件系统(Hardware Design)是否满足需求，因为硬件系统都是有限的。而Regularity则解决了需求到底能不能被硬件系统实现。
 
 通过第\ref{chap:intro}章中的介绍，我们知道这3类问题是有着紧密的内部联系的。而Regularity问题也是联系另外两类问题的一个桥梁。如果能有效地判定一个进程的Regularity性质，那么往往能根据Finiteness问题的已有结论，得到更快速的Equivalence Checking算法。
+
 本章最后我们将介绍一下我们研究等价验证问题的目标，给定一个问题，我们希望能证明
 	 
 可判定性(Decidable)？
@@ -221,6 +222,6 @@ $\seq=\bigcup\{\mathcal{R}:\mathcal{R}\mbox{ 是一个强互模拟关系}\}$，�
 		\item 可判定，那么我们寻找它的相关算法(Algorithm)，证明其计算复杂性(Complexity)的上界(Upper Bound)和下界(Lower Bound)。
 		\item 不可判定，那么我们探究其不可判定的难度。
 	\end{itemize}
-我们总是希望能得到完备(Completeness)的结论。
+我们对于这些问题，在可计算性和算法复杂性上总是希望能得到完备(Completeness)的结论。
 
 
