@@ -190,7 +190,29 @@ $\seq=\bigcup\{\mathcal{R}:\mathcal{R}\mbox{ 是一个强互模拟关系}\}$，�
 
 可以看出，弱互模拟在模拟的过程中忽略了所有内部动作对观测造成的影响，要求相对``宽松''。而Branching互模拟从某种意义上来说更加精确地分析了不同内部动作的区别，系统在模拟的过程中可以先经过一系列不改变状态的内部动作，然后进行模拟。这种Branching互模拟关系在模拟路径上除最后一步都需要满足不改变系统状态，更加符合实际应用中我们遇到的系统，例如程序优化的过程中，我们也仅能忽略不改变程序状态的内部语句，而不能忽略会对程序结果造成影响的语句。
 
+下面给出一个例子，以说明Branching互模拟与强互模拟在验证问题中的应用场景,如图\ref{fig:bis-verif}
+
+\begin{figure}[htbp]
+\begin{center}
+\begin{tabular}{c}
+\xymatrix{
+  \mathsf{Spec 1} \ar@{-}[d]_{\beq} \ar@{-}[r]^{\seq} & \mathsf{Spec 2} \ar@{-}[d]^{\beq} \\
+  \mathsf{Prog 1} \ar@{-}[r]^{\beq} & \mathsf{Prog 2}\\
+  }
+\end{tabular}
+\end{center}
+\caption{验证问题中的互模拟关系}
+\label{fig:bis-verif}
+\end{figure}
+
+\begin{itemize}
+    \item $\seq$ 被用来验证两个\emph{需求(Specifications)}是否等价。
+    \item $\beq$ 被用来验证一个\emph{程序(Program)}是否是某个需求的正确\emph{实现(Implementation)}。
+    \item $\beq$ 被用来验证两个\emph{程序(Programs)}是否等价。
+\end{itemize}
+
 在为等价关系的刻画带来精确性的同时，引入内部动作也会增加相应的验证问题的难度，但是如果要使得形式化验证的理论真正能应用在实际的系统中，对内部动作的考虑是不可避免的。
+
 
 \section{无限状态系统验证问题}
 \label{sec:verfication}
