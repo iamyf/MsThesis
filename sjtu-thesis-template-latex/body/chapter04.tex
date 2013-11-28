@@ -1,3 +1,45 @@
-\chapter{Totally Normed PA Regularity的等价条件}
+\chapter{Totally Normed PA Regularity的充要条件}
 \label{chap:tnpa-equiv}
 
+在这一章中，我们将具体讨论和证明tnPA的$\weq_{REG}$和$\beq_{REG}$问题的充分必要条件，定理\ref{thm:tnpa-equiv}。这里将\cite{Kucera1996}中用于判定nPA的$\seq_{REG}$的一些技术应用到我们讨论的问题中，起到了很好的效果。这里证明的充要条件将会在第\ref{chap:tnpa-alg}章中的多项式算法中被判定。
+
+\section{PA模型定义}
+\label{sec:pa-def}
+
+为了问题研究的严谨性，我们这里在PRS的一般性定义\ref{def:prs}的基础上，给出PA的严格定义。
+
+\begin{defn}[PA 定义]\label{def:pa}
+一个PA系统是一个形如$X\act{a}\alpha$的有限转换规则的集合$\Delta$，一个PA表达式的语法定义为：
+$$\alpha,\beta\Coloneqq X\mid \alpha.\beta\mid\alpha\parallel\beta\mid\alpha\llfloor\beta$$
+其中用大写英文字母表示进程变量,希腊字母表示进程项(状态)。
+相应的操作语义可以定义为一下规则
+\[\begin{array}{ccc}
+$\inference{\alpha\act{a}\beta\in\Delta}{\alpha\act{a}\beta}$ &
+$\inference{\alpha\act{a}\alpha^{'}}{\alpha.\beta\act{a}\alpha^{'}.\beta}$ &
+$\inference{\alpha\act{a}\alpha^{'}}{\alpha\| \beta\act{a}\alpha^{'}\|\beta}$ \\
+ \\
+$\inference{\beta\act{a}\beta^{'}}{\alpha\| \beta\act{a}\alpha \| \beta^{'}}$ &
+$\inference{\alpha\act{a}\alpha^{'}}{\alpha\llfloor \beta\act{a}\alpha^{'}\|\beta}$ &
+\end{array}\]
+一个PA进程可以具体表示为$(\alpha,\Delta)$。
+\end{defn}
+
+我们用函数$Var(\_)$表示$\_$中所包含的进程变量。
+
+我们要求一个PA中定义的所有进程变量$X_i\in Var(\Delta)$存在一个可达的状态$\alpha$满足$\X_i\in Var(\alpha)$。
+
+另外，我们用$Length(\alpha)$表示$\alpha$中出现的进程变量的个数。
+
+在这里我们关心的PA进程都是Totally Normed的。
+\section{进程状态的增长}
+\label{sec:grow-prop}
+
+\section{转换关系树}
+\label{sec:trans-tree}
+
+\section{等价条件证明}
+\label{sec:equiv-proof}
+
+\begin{thm}[tnPA $\weq_{REG}$和$\beq_{REG}$的等价条件]\label{thm:tnpa-equiv}
+
+\end{thm}

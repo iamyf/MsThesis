@@ -165,7 +165,7 @@ $\weq$ 		&\begin{tabular}{c}
 \label{tab:pn-reg}
 \end{table}
 
-这里我们注意＊所标的结论，即PN上$\beq_{REG}$的不可判定性并未直接在引用论文中出现，而是本文作者经过考证和与人讨论，将$\weq_{REG}$不可判定性的证明技术，应用到$\beq_{REG}$上，得出的一个引文\cite{Jancar1996}的推论。
+这里我们注意＊所标的结论，即PN上$\beq_{REG}$的不可判定性并未直接在引用论文中出现，而是本文作者经过与合作者的严格论证，将$\weq_{REG}$不可判定性的证明技术，应用到$\beq_{REG}$上，得出的一个引文\cite{Jancar1996}的推论。
 
 \begin{cor}[PN $\beq_{REG}$ 的不可判定性]\label{cor:pn-beq-und}
 PN的$\beq_{REG}$问题是不可判定(Undecidable)的。
@@ -199,5 +199,63 @@ PN的$\beq_{REG}$问题是不可判定(Undecidable)的。
 \end{table}
 
 其中＊所标的两个多项式时间判定算法为本文的主要结论，该结论同样适用于PA的子模型tnBPA和tnBPP。
+
 \section{相关技术路线和引理}
 \label{sec:lemma}
+
+本节中，我们将对PRS下Regularity问题证明的技术路线进行讨论，并给出一些一般性的引理。
+
+我们通常用$(\alpha,\Delta)$来表示初始状态为$\alpha$，转换规则集合为$\Delta$的某个PRS进程。
+
+Regularity问题是在一个可以表示无限状态的系统中，探究它的有限状态的性质。从进程进行转换的角度出发，我们可以给出一个进程不满足Regularity性质的等价条件。我们需要寻找一个进程无限长的动作序列。
+
+\begin{lem}[Infinite $\not\cong$ Path]\label{lemma:infi-path}
+一个进程系统$(\alpha,\Delta)$，关于等价关系$\cong$不是Regular的，\emph{当且仅当}存在一个无限长的动作序列
+$$\alpha\act{a_0}\alpha_1\act{a_1}\alpha_2\act{a_2}\ldots$$ 
+满足对任意$i\neq j$，有$\alpha_i\not\cong\alpha_j$。
+\end{lem}
+
+\begin{proof}
+我们分别证明充分性和必要性：
+\begin{itemize}
+	\item $\Rightarrow$ 假设$(\alpha,\Delta)$不是$\cong_{REG}$的，那么我们将所有从$\alpha$出发的动作序列看成一棵以$\alpha$为根的树(Tree)。由于所有转换规则构成一个有限集合，所以这个图也是有限分枝的(Finite Branching)。由假设，$(\alpha,\Delta)$不是$\cong_{REG}$的，所以这颗树上有无限个互补关于$\cong$等价的不同的状态。那么，就一定存在一条满足条件的无限长的序列。否则，这样的路径就会变成一个环，由于该树只有有限分枝，就不存在无限的关于$\cong$互不相同的状态了。这样就证明了该序列一定存在。
+	\item $\Leftarrow$ 存在这样的无限长动作序列，则$(\alpha,\Delta)$满足Regularity的定义。
+\end{itemize}
+\end{proof}
+
+相对于特定的互模拟等价$\cong$的判定，一个更容易的任务是判定两个进程项在表示上是否完全相同(Lexicographically Equivalent)。即两个进程是否是完全相同的表达式。我们用$\equiv$来表示。我们下面给出一个$\not\cong_{REG}$的必要条件。
+
+\begin{lem}[Infinite $\not\equiv$ Path]\label{lemma:infi-path-2}
+一个进程系统$(\alpha,\Delta)$，关于等价关系$\cong$不是Regular的，\emph{那么}存在一个无限长的动作序列
+$$\alpha\act{a_0}\alpha_1\act{a_1}\alpha_2\act{a_2}\ldots$$ 
+满足对任意$i\neq j$，有$\alpha_i\not\equiv\alpha_j$。
+\end{lem}
+
+\begin{proof}
+和引理\ref{lemma:infi-path}证明类似，与之同理，我们考虑以$\alpha$为根的一棵转换动作的树。如引理\ref{lemma:infi-path}中的无限长路径一定存在，而$\not\cong$则一定有$\not\equiv$。证毕。
+\end{proof}
+
+关于Normed进程，我们显然有Norm不相等的进程是不互模拟等价的。这样我们就有了一个关于Normed进程的Regularity问题的充分条件。
+
+\begin{lem}[Infinite Norm Increasing Path]\label{lamma:infi-path-3}
+一个进程系统$(\alpha,\Delta)$，\emph{如果}存在一个无限长的动作序列
+$$\alpha\act{a_0}\alpha_1\act{a_1}\alpha_2\act{a_2}\ldots$$ 
+满足对任意$i$，存在$j$，有$\|\alpha_i\|<\|\alpha_j\|$。
+那么该进程系统不是Regular的。
+\end{lem}
+
+\begin{proof}
+如果存在这样的动作序列，那么$(\alpha,\Delta)$显然满足不是Regular的定义。
+\end{proof}
+
+另一个重要的引理是，如果一个进程系统$(\alpha,\Delta)$的某个等价关系$\cong$或$\cong_{FS}$是\emph{可判定的(Decidable)}，那么相应的$\cong_{REG}$是\emph{半可判定(Semi-Decidable)}的。这是一个对于Regularity问题十分重要的结论，因为这样在很多情况下，我们就只需要再去证明另一半问题$\not\cong_{REG}$的半可判定性了。
+
+\begin{lem}[Semi-Decidability]\label{lemma:semi-dec}
+若$(\alpha,\Delta)$的$\cong$或者$\cong_{FS}$是可判定的(Decidable)，那么$\cong_{REG}$是半可判定的(Semi-Decidable)。
+\end{lem}
+
+\begin{proof}
+考虑以下过程，我们通过对有限状态系统FS的某种编码，可以有效地枚举(Enumerate)其中的进程$(\gamma,\Delta')$。接着我们利用$\cong$或者$\cong_{FS}$的相应算法判定其是否与$(\alpha,\Delta)$等价。如果等价，则该过程终止，该进程系统满足Regularity性质，否则继续重复枚举过程。该过程即是一个$\cong_{REG}$的半可判定算法。
+\end{proof}
+
+而对于另一半问题$\not\cong_{REG}$的研究，由于我们不可能直接去验证路径的无限长度这样的性质，所以我们只能去寻找一些进程生成的状态树中的一些有限的子结构。例如一些可能通过重复作用而生成出无限状态的动作串。这类子结构在各种不同的模型中会满足不同的性质，常常会在Regularity的判定算法中起到关键作用。对于tnPA，本文将在第\ref{chap:tnpa-equiv}章中具体研究这种子结构。
