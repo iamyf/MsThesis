@@ -29,6 +29,7 @@ Normed条件规定了一个进程只能做有限个减少Norm的动作，满足�
 本节将根据不同的PRS子模型，分别总结其现有的关于强互模拟，弱互模拟和Branching互模拟的Regularity问题的结论，并根据问题的相似性，直接给出一些推论。根据定义\ref{def:prob}中给出的记号，我们将三类问题分别及做$\seq_{REG},\,\weq_{REG}$和$\beq_{REG}$。
 
 表\ref{tab:bpa-reg}为BPA上的结论总结，表中如果出现两行则分别表示该问题已知的复杂度上界和下界。``?''表示该问题还未被解决。
+
 \begin{table}[htbp]
 \begin{center}
 \begin{tabular}{|c|c|c|}
@@ -63,9 +64,10 @@ $\weq_{REG}$ 	&\begin{tabular}{c} ?
 \end{center}
 \end{table}
 
-其中由Fu证明的$nBPA$上$\beq_{REG}$问题的可判定行结论是现在唯一已知的考虑系统内部动作的互模拟等价关系的Regularity问题结论。
+其中由Fu证明的$nBPA$上$\beq_{REG}$问题的可判定行结论是现在唯一已知的考虑系统内部动作的互模拟等价关系的Regularity问题结论的可判定性结论。这一结论利用到了nBPA中的$\beq$的可判定性证明的相关技术。
 
-表\ref{tab:bpp-reg}总结了BPP上的已知结论
+表\ref{tab:bpp-reg}总结了BPP上的已知结论：
+
 \begin{table}[htbp]
 \begin{center}
 \begin{tabular}{|c|c|c|} 
@@ -96,9 +98,11 @@ $\weq$		&\begin{tabular}{c}
 \label{tab:bpp-reg}
 \end{table}
 
-在BPP上，我们已经有了$\seq_{REG}$的PSPACE完全性结论。这里利用到了一种在BPP中常用的DD-Function的技术，来对BPP的等价类进行划分，但是，对$\weq$和$\beq$，DD-Function并不适用，所以我们还需要寻找其他技术来证明其可判定行。
+在BPP上，我们已经有了$\seq_{REG}$的PSPACE完全性结论。这里利用到了一种在BPP中常用的DD-Function的技术，来对BPP的等价类进行划分，但是，对$\weq$和$\beq$，DD-Function并不适用，所以我们还需要寻找其他技术来证明其可判定性。
 
-表\ref{tab:pda-reg}为PDA上的现有结论
+而对与nBPP，在\cite{CzerwiAski2011}，中，给出了$\beq$的可判定性结论，而相关的$\beq_{REG}$问题却一直未被解决。而由于下文中将要提到的引理\ref{lemma:semi-dec}，我们可知该问题至少是半可判定的，所以引起包括本文作者在内的许多研究人员的极大兴趣。但是要完全的解决该问题，还需要客服许多技术上的难题。这一问题还将在本文的第\ref{chap:future}中的未解决问题中进一步讨论。
+
+表\ref{tab:pda-reg}为PDA上的现有结论：
 
 \begin{table}[htbp]
 \begin{center}
@@ -130,9 +134,9 @@ $\weq$ 		&\begin{tabular}{c}
 \label{tab:pda-reg}
 \end{table}
 
-在PDA上，我们似乎还没有找到一些好的方法来处理Regularity问题，即使对$\seq_{REG}$。
+在PDA上，我们似乎还没有找到一些好的方法来处理Regularity问题，即使对$\seq_{REG}$。我们只是关于nPDA的$\seq_{REG}$问题，有多项式时间的算法。
 
-表\ref{tab:pn-reg}总结了PN上的现有结论
+表\ref{tab:pn-reg}总结了PN上的现有结论：
 
 \begin{table}[htbp]
 \begin{center}
@@ -165,13 +169,17 @@ $\weq$ 		&\begin{tabular}{c}
 \label{tab:pn-reg}
 \end{table}
 
-这里我们注意＊所标的结论，即PN上$\beq_{REG}$的不可判定性并未直接在引用论文中出现，而是本文作者经过与合作者的严格论证，将$\weq_{REG}$不可判定性的证明技术，应用到$\beq_{REG}$上，得出的一个引文\cite{Jancar1996}的推论。
+PN这类并行进程的研究中经常会用到Presburg算数来刻画其中的一些问题，从而能得到一些直接的判定性结论。同时，对于PN中的进程，我们有一个等价的向量表示，称为Vector Addition System(VAS)，其中的很多技术可以用于PN中相关问题的证明，如可达性问题(Reachability)。同时这种向量表示在相关验证的问题的表述中也会带来很大的方便性。
+
+这里我们注意表\ref{tab:pn-reg}中＊所标的结论，即PN上$\beq_{REG}$的不可判定性并未直接在引用论文中出现，而是本文作者经过与合作者的严格论证，将$\weq_{REG}$不可判定性的证明技术，应用到$\beq_{REG}$上，得出的一个引文\cite{Jancar1996}的推论。
 
 \begin{cor}[PN $\beq_{REG}$ 的不可判定性]\label{cor:pn-beq-und}
 PN的$\beq_{REG}$问题是不可判定(Undecidable)的。
 \end{cor}
 
-最后表\ref{tab:pa-reg}将总结PA上的相关结论，因为我们将要研究的问题是tnPA上的，所以这里同时还总结了tnPA上的结论
+另外我们注意到，BPP实际是一种特殊的Petri网，在\ref{Esparza1997}中定义了这种PN的子类，称为Communication Free Petri网，它其实就是一种进程间通信的并发模型。利用这一等价模型，我们可以利用PN中的技术和结论，通过条件的加强，来证明BPP上相关问题的结论。
+
+最后表\ref{tab:pa-reg}将总结PA上的相关结论，因为我们将要研究的问题是tnPA上的，所以这里同时还总结了tnPA上的结论。
 
 \begin{table}[htbp]
 \begin{center}
@@ -197,17 +205,20 @@ PN的$\beq_{REG}$问题是不可判定(Undecidable)的。
 \label{tab:pa-reg}
 \end{center}
 \end{table}
+PA模型的进程项中由于同时允许串行和并行连结符的存在，所以为判定性带来了很大的难度。很大程度上我们现阶段的证明只能在nPA的限制下，通过一些巧妙的技术来规避这些连结符的复杂性带来的困扰。
 
-其中＊所标的两个多项式时间判定算法为本文的主要结论，该结论同样适用于PA的子模型tnBPA和tnBPP。
+表\ref{tab:pa-reg}中＊所标的两个多项式时间判定算法为本文的主要结论，该结论同样适用于PA的子模型tnBPA和tnBPP。同时该问题的时间复杂度也将在本文中给出。
 
 \section{相关技术路线和引理}
 \label{sec:lemma}
 
-本节中，我们将对PRS下Regularity问题证明的技术路线进行讨论，并给出一些一般性的引理。
+本节中，我们将对PRS下Regularity问题证明的技术路线进行讨论，并给出一些与具体模型无关的，关于Regularity问题的一般性引理。
 
 我们通常用$(\alpha,\Delta)$来表示初始状态为$\alpha$，转换规则集合为$\Delta$的某个PRS进程。
 
-Regularity问题是在一个可以表示无限状态的系统中，探究它的有限状态的性质。从进程进行转换的角度出发，我们可以给出一个进程不满足Regularity性质的等价条件。我们需要寻找一个进程无限长的动作序列。
+Regularity问题是在一个可以表示无限状态的系统中，探究它的有限状态的性质。从进程进行转换的角度出发，我们可以给出一个进程不满足Regularity性质的等价条件。
+
+从进程行为的角度出发，为了寻找进程中状态的无限性，我们需要寻找一个如引理\ref{lemma:infi-path}中的进程无限长的动作序列。
 
 \begin{lem}[Infinite $\not\cong$ Path]\label{lemma:infi-path}
 一个进程系统$(\alpha,\Delta)$，关于等价关系$\cong$不是Regular的，\emph{当且仅当}存在一个无限长的动作序列

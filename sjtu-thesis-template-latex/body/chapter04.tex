@@ -122,7 +122,7 @@ $T_{\mathcal{P}}$的拓扑结构(Topological Structure)可以利用树的层数$
 我们根据此将$Level_i$中所有节点$N\in V$分成两类分别定义其子节点的标号规则：
 \begin{enumerate}
 \item 如果$N$不是一个激发节点。那么$N$只有一个儿子节点，标号和$N$相同。而且，一条在它们之间连一条边来表示他们之间的标号继承关系。
-\item 如果$N$是一个激发节点。我们假设它对应的进程变量为$A$，而相应的转换规则为$A\act{a_i}\gamma_i$。令$n=Length(\gamma_i)$。如果$n>0$，那么节点$N$有$n$个字节点，否则它是一个叶子节点。它的第$k$个子节点的标号就是$\gamma_i$中从左到右的第$k$个变量。
+\item 如果$N$是一个激发节点。我们假设它对应的进程变量为$A$，而相应的转换规则为$A\act{a_i}\gamma_i$。令$n=Length(\gamma_i)$。如果$n>0$，那么节点$N$有$n$个子节点，否则它是一个叶子节点。它的第$k$个子节点的标号就是$\gamma_i$中从左到右的第$k$个变量。
 \end{enumerate}
 \end{enumerate}
 \end{defn}
@@ -203,22 +203,81 @@ WidthT(N) &=& \left\{ \begin{array}{ll}
 \end{eqnarray*}
 \end{defn}
 
+其中函数$card(S)$表示集合S中互不相同的元素的个数，即集合的基数(Cardinality)。
+
 类似的我们可以为一个段$Seg(N)$定义它的宽度函数$WidthS(N)$，或者为$T_{\mathcal{P}}$的一个以$N$为根节点的子树定义它的宽度函数$WidthT(N)$。
 
 下面在定义\ref{def:branch-d}中，我们为转换关系树定义了一个\emph{分枝度(Branching Degree)}，它的最大值被输入的tnPA的规则所限定。
 
 \begin{defn}[Branching Degree]\label{def:branch-d}
-给定一个转换关系树$T_{\mathcal{P}}$，它的\emph{分枝度(Branching Degree)}，为它节点的字节点个数的最大值，即其中分枝数的最大值。我们用$\mathbf{D}$表示这个数。
+给定一个转换关系树$T_{\mathcal{P}}$，它的\emph{分枝度(Branching Degree)}，为它节点的子节点个数的最大值，即其中分枝数的最大值。我们用$\mathbf{D}$表示这个数。
 \end{defn}
 
-每个节点的分枝数由它对应被激活的转换所决定，所以$\mathbf{D}$的最大值由输入中进程的规则$\Delta$所限定，不会超过输入的最长的规则的长度，所以它的上界(Upper Bound)是\emph{有限(Finite)}的且可以\emph{有效计算(Effectively Computable)}的。
+每个节点的分枝数由它对应被激活的转换规则所决定，所以$\mathbf{D}$的最大值由输入中进程的规则$\Delta$所限定，不会超过输入的最长的规则的长度，所以它的上界(Upper Bound)是\emph{有限(Finite)}的且可以\emph{有效计算(Effectively Computable)}的。
 
 利用转换关系树的辅助，我们可以对进程的行为作出更细致的分析。这是一个关于进程转换路径的语法上的表示，它可以更精确地刻画其中进程表达式的“长度”，并用子节点的顺序来记录部分进程变量执行顺序的信息。通过本节的分析，我们定义了一些转换关系树上有用的结构和概念，接下来，我们就可以试图证明造成进程状态增长的原因。
 
 \section{等价条件证明}
 \label{sec:equiv-proof}
 
+本节中我们将利用第\ref{sec:grow-prop}节中的增长变量和第\ref{sec:trans-tree}节中的转换关系树，来证明一个tnPA进程非Regular的等价条件。
 
-\begin{thm}[tnPA $\weq_{REG}$和$\beq_{REG}$的等价条件]\label{thm:tnpa-equiv}
+首先我们需要证明引理\ref{lemma:width}，它给了不包含增长变量的进程所对应的转换关系树中的所有子树的宽度一个上界。
 
+\begin{lem}\label{lemma:width}
+给定一个tnPA进程$(\alpha,\Delta)$和它的一个转换关系树$T_{\mathcal{P}}$。如果$Var(\Delta)$不包含任何增长变量，那么$T_{\mathcal{P}}$中的每个节点$N$，满足$WidthT(N)\leq D^{n-1}$，其中 $n=card(Finite(N))$。
+\end{lem}
+
+\begin{proof}
+我们显然可以得到$n>0$，如果假设$n=0$，那么$Finite(N)=\emptyset$。由引理\ref{lemma:finite}，由于$Label(N)\notin\Finite(N)=\emptyset$，可知$Lable(N)$是一个增长变量，和假设矛盾。所以我们之考虑$n>0$的情况。
+
+现在我们可以利用关于$n$的归纳法进行证明：
+\begin{enumerate}
+\item $n=1$： 这种情况我们只要证明$WidthT(N)=\mathbf{D}^{n-1}=1$。
+
+假设以$N$为跟的子树中有一个分枝节点$N_1$。不妨设$Finite(N)=\{X\}$，那么有$Finite(N_1)=\{X\}$。这是因为$N_1$是$N$的一个后代节点，而且$N_1$不可以是一个增长节点，根据引理\ref{lemma:finite}，可知$Label(N_1)=X$。
+
+由假设$N_1$是一个分枝节点，那么$N1$至少有一个子节点$N_1^{'}$在$N_1$中不被阻塞，于是有$Finite(N_1^{'})=\emptyset$。且有$Label(N_1^{'})=X_1\notin Finite(N_1^{'})$，则$X_1$只能是一个增长节点。产生矛盾。
+
+这就意味着，这棵子树中不可能包含任何分枝节点，即$WidthT(N)=\mathbf{D}^{n-1}=1$。
+\item $n>1$： 这种情况我们只要证明以$N$为根节点的子树中的每一个段的宽度都不会超过$\mathbf{D}^{n-1}$，其中$n=card(Finite(N))$。另$S$为该子树中一个以$N_1$为起始节点的段。我们显然有$card(Finite(N_1))\leq n$。
+
+下面我们考虑$N_1$的四种可能情况，从而找到$WidthS(N_1)$的上界：
+\begin{enumerate}
+\item 若$N_1$是一个叶子节点。
+
+那么显然$WidthS(N_1)=1$
+\item 若$N_1$不是叶子节点，也不是一个分枝节点。
+
+那么它唯一的儿子节点就是段$S$的结束节点，可知$WidthS(N_1)=1$。
+\item 若$N_1$是一个分枝节点，而且$N_1$中没有子节点被阻塞。
+
+令$N_1^{'}$为$N_1$的一个子节点，我们有$Finite(N_1^{'})=Finite(N_1)-\{Label(N_1)\}$。所以有$card(Finite(N_1^{'}))\leq n-1$。
+
+由归纳假设，我们有$WidthT(N_1^{'})\leq \mathbf{D}^{n-2}$。$N_1$最多有$\mathbf{D}$个子节点，所以有$WidthS(N_1)\leq WidthT(N_1)\leq \mathbf{D}\times\mathbf{D}^{n-2}=\mathbf{D}^{n-1}$。
+\item 若$N_1$是一个分枝节点而且有一个被阻塞的子节点$N_b$。
+
+我们首先考虑除去$N_b$以外的那些子节点。不妨设$N_1^{'}$为这样的节点，根据上一种情况的证明，我们有$WidthT(N_1)\leq\mathbf{D}^{n-2}$
+
+然后对于那个被阻塞的节点$N_b$，我们试图证明它在直到段$S$之前的子孙节点都不会有任何分枝节点。
+
+如果$N_B$的子孙节点中有一个分枝节点$N_b^{'}$它属于段$S$但它不是结束节点$N_e$。由于$N_b^{'}$是分枝节点，那么他是一个激活的节点。另一方面，我们有$N_b$是被阻塞的节点，所以它的子孙节点只能在其他节点所对应的变量都消失之后才能被激活。我们可以断言$N_b^{'}$必须是$N_e$或者是它的一个子孙，这是由于$N_e$是$N_b$下面第一个分割节点。所以$N_b^{'}$不可能属于$S$，推出矛盾。
+
+这就意味着$N_b$在$N_e$之前的所有子孙节点都不是分枝节点, 所以$N_b$对$WidthS(N_1)$的贡献只有$1$。
+
+最后我们可以总结这种情况下$WidthS(N_1)\leq (\mathbf{D}-1)\times \mathbf{D}^{n-2}+1\leq \mathbf{D}^{n-1}$。
+\end{enumerate}
+于是我们有$WidthT(N)\leq \mathbf{D}^{n-1}$。
+\end{enumerate}
+本引理得证。
+\end{proof}
+
+有了之前的准备，我们现在就开始证明本章中的主要结论，定理\ref{thm:tnpa-equiv}。它为tnPA的$\weq_{REG}$和$\beq_{REG}$问题证明了一个充分必要条件。这是进行Regularity判定算法设计的理论基础，它确保了第\ref{chap:tnpa-alg}章中算法的正确性。
+
+\begin{thm}[tnPA $\weq_{REG}$的等价条件]\label{thm:tnpa-equiv}
+一个tnPA进程$(\alpha,\Delta)$满足$\weq_{REG}$\emph{当且仅当}$Var(\Delta)$不包含任何增长变量。
 \end{thm}
+
+\begin{proof}
+
+\end{proof}
