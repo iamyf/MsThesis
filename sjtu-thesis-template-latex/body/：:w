@@ -3,8 +3,6 @@
 
 在这一章中，我们将具体讨论和证明tnPA的$\weq_{REG}$和$\beq_{REG}$问题的充分必要条件，定理\ref{thm:tnpa-equiv}。这里将\cite{Kucera1996}中用于判定nPA的$\seq_{REG}$的一些技术应用到我们讨论的问题中，起到了很好的效果。这里证明的充要条件将会在第\ref{chap:tnpa-alg}章中的多项式算法中被判定。
 
-这里需要说明的是，由于这些条件都需要是可判定的，在判定的过程中我们需要一个计算复杂性上可行的算法。这就意味着我们所给出条件的判定过程需要有一个确定的，有限的，可以有效计算的上界。否则判定算法上会发生状态数量的爆炸，整个过程就丧失了计算上的可行性。这个上界会在接下来的分析中一步步变得清晰，我们要遵守的一个原则是这个上界只能和输入进程的语法规则和初始状态的规模相关。
-
 \section{PA模型定义}
 \label{sec:pa-def}
 
@@ -180,7 +178,8 @@ $Finite(N)$集合刻画了使得以$N$为根节点的子树能保持有限性质
 为了证明定理\ref{thm:tnpa-equiv}中本章的主要结论，接下来我们针对转换关系树$T_{\mathcal{P}}$，给出关于它的概念，用来刻画它的一些细节，以方便更精细的分析。在定义\ref{def:seg}中我们将树分\emph{段(Segment)}进行研究。
 
 \begin{defn}[树的分段 Breaking Levels and Segments]\label{def:seg}
-给定一棵转换关系树$T_{\mathcal{P}}$，
+
+给定一棵转换关系树$T_{\mathcal{P}}$。
 \begin{itemize}
 	\item 我们称那些只包含一个节点的层为\emph{分割层(Breaking Levels)}，这些层中的节点为\emph{分割节点(Breaking Nodes)}。
 	\item 通过分割节点，我们可以将树$T_{\mathcal{P}}$分\emph{段(Segments)}。
@@ -190,34 +189,8 @@ $Finite(N)$集合刻画了使得以$N$为根节点的子树能保持有限性质
 这里我们用$Seg(N)$表示一个以$N$为起始节点的段。
 \end{itemize}
 \end{defn}
-
-下面我们在定义\ref{def:width}中给出另一个用来衡量的树的宽度结构的函数，我们可以通过类似的定义来衡量段的相关性质。
-
-\begin{defn}[树的宽度 Width]\label{def:width}
-给定一个以$N$为根节点的转换关系树$T_{\mathcal{P}}$，树的宽度函数$WidthT(N)$定义如下：
-\begin{eqnarray*}
-WidthT(N) &=& \left\{ \begin{array}{ll}
-    w& \mbox{$card(Level_i)$的最大值, $i\in \mathbb{N}\cup\{0\}$}\\
-    \infty &\mbox{如果不存在最大值}
-    \end{array}\right.
-\end{eqnarray*}
-\end{defn}
-
-类似的我们可以为一个段$Seg(N)$定义它的宽度函数$WidthS(N)$，或者为$T_{\mathcal{P}}$的一个以$N$为根节点的子树定义它的宽度函数$WidthT(N)$。
-
-下面在定义\ref{def:branch-d}中，我们为转换关系树定义了一个\emph{分枝度(Branching Degree)}，它的最大值被输入的tnPA的规则所限定。
-
-\begin{defn}[Branching Degree]\label{def:branch-d}
-给定一个转换关系树$T_{\mathcal{P}}$，它的\emph{分枝度(Branching Degree)}，为它节点的字节点个数的最大值，即其中分枝数的最大值。我们用$\mathbf{D}$表示这个数。
-\end{defn}
-
-每个节点的分枝数由它对应被激活的转换所决定，所以$\mathbf{D}$的最大值由输入中进程的规则$\Delta$所限定，不会超过输入的最长的规则的长度，所以它的上界(Upper Bound)是\emph{有限(Finite)}的且可以\emph{有效计算(Effectively Computable)}的。
-
-利用转换关系树的辅助，我们可以对进程的行为作出更细致的分析。这是一个关于进程转换路径的语法上的表示，它可以更精确地刻画其中进程表达式的“长度”，并用子节点的顺序来记录部分进程变量执行顺序的信息。通过本节的分析，我们定义了一些转换关系树上有用的结构和概念，接下来，我们就可以试图证明造成进程状态增长的原因。
-
 \section{等价条件证明}
 \label{sec:equiv-proof}
-
 
 \begin{thm}[tnPA $\weq_{REG}$和$\beq_{REG}$的等价条件]\label{thm:tnpa-equiv}
 
