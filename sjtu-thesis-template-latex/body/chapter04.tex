@@ -279,5 +279,51 @@ WidthT(N) &=& \left\{ \begin{array}{ll}
 \end{thm}
 
 \begin{proof}
+我们分别证明充分性和必要性。
+\begin{itemize}
+	\item $\Rightarrow$ 假设tnPA进程中存在增长变量，为$X\in Var(\Delta)$。我们需要证明利用$\Delta$中的规则可以到达无限个互不弱互模拟的的状态。
 
+有假设中$(\alpha,\Delta)$的定义，可知存在某个状态$\alpha_x$，满足$\alpha\act{}^{*}\alpha_x$，且$X\in Var(\alpha_x)$。由引理\ref{lemma:fire}可知，存在一个状态$\beta_x$，满足$\alpha\act{}^{*}\alpha_x\act{}^{*}\beta_x$，且$X\in Fire(\beta_x)$。
+
+我们知道，互模拟的进程的Norm必然想等，由引理\ref{lemma:infi-path-3}可知，我们只需证明对于任意$k\in \mathcal{N}$，存在一个可达的状态$\beta_k$满足$\|\beta_k\|\geq k$。
+
+这里我们选择状态$\beta_x$进行分析，令$X$为激活变量。由于$X$是一个增长变量，所以存在一个可达的状态$\beta_1^{'}$，满足$X\act{}^{*}\beta_1^{'}$，$X\in Fire(\beta_1^{'})$，且$Length(\beta_1^{'})\geq 2$。
+
+所以存在一个状态$\beta_1$，形如$\beta_x\act{}^{*}\beta_1$，我们将其中被激活的变量$X$转换为$\beta_1^{'}$。另外，我们有$X\in Fire(\beta_1)$，因为$X\in Fire(\beta_1^{'})$，且$Fire(\beta_1^{'})\subseteq Fire(\beta_1)$。
+
+这样我们可以重复这一过程，从$\beta_1$中构造出$\beta_2,\beta_3\ldots$，这些状态满足$X\in Fire(\beta_i)$，且$Length(\beta_{i+1})>Length(\beta_i)(i=2,3,\ldots)$。即满足$Length(\beta_k)\geq k$。
+
+由假设，我们有$(\alpha,\Delta)$是Totally Normed，所以有对于每一个变量$Y\in Var(\beta_k)$，满足$\|Y\|\geq 1$。结合之前$Length(\beta_k)\geq k$的结论，我们就可以从Totally Normed性质得出$\|\beta_k\|\geq k$。
+
+必要性得证。
+	
+	\item $\Leftarrow$ 我们只需要证明，如果一个tnPA进程$(\alpha,\Delta)$不满足$\weq_{REG}$，那么一定存在一个增长变量$X\in Var(\Delta)$。
+
+我们基本的证明策略是找到一个不包含增长变量的进程所能产生语言上互不相同的表达式数量的上界。假设一个tnPA进程$(\alpha,\Delta)$不包含任何一个增长变量，那么我们只需要证明它是$\weq_{REG}$的。或者我们证明如果它不是$\weq_{REG}$的，那么必然存在矛盾。
+
+由引理\ref{lemma:infi-path}，这个目标等价于证明如果存在一个形如$\alpha\act{a_0}\alpha_1\act{a_1}\alpha_2\act{a_2}\ldots$的无限长度转换动作序列$\mathcal{P}$，那么存在$i\neq j$且$\alpha_i\weq \alpha_j$。
+
+现在令$T_{\mathcal{P}}$为$\mathcal{P}$的转换关系树，我们进一步对树的宽度进行分析，以找到该进程潜在的能生成的进程表达式的长度的上限。
+
+令$N$为$T_{\mathcal{P}}$的根节点。应用引理\ref{lemma:width}，可知$WidthT(N)\leq \mathbf{D}^{n-1}$，其中$n=card(Finite(N))$，且$\mathbf{D}$为$T_{\mathcal{P}}$的分枝度。
+
+显然，我们有$card(Finite(N))\leq card(Var(\Delta))$。那么有$Length(a_i)\leq WidthT(N)\leq \mathbf{D}^{card(Var(\Delta))-1}=m$其中，$i=1,2,\ldots$。这里$m$是一个由输入进程规则决定的常数，也就是进程从初始状态所可能生成的进程的长度由这个常数所限定。所以在$\mathcal{P}$中最多只有有限(Finite)个语言(Lexically)上互不相同的表达式。
+
+最后，必然存在$i\neq j$，满足$\alpha_i\equiv \alpha_j$，蕴含了$\alpha_i\weq \alpha_j$。产生矛盾。
+
+充分性得证。
+\end{itemize}
+综上，本定理得证。
 \end{proof}
+
+这个证明中有两处涉及到了$\weq$，首先在必要性的证明中如两个tnPA进程Norm不相等，那么它们必然不是$\weq$的。同理，它们也不是$\beq$的。
+
+在充分性的证明中，我们用到了如果两个进程是$\equiv$那么必然是$\weq$的，同理，显然对于$\equiv$的两个进程，也满足$\beq$。综上所述，该定理对与$\beq_{REG}$一样成立，我们有推论\ref{cor:tnpa-equiv}：
+
+\begin{cor}[tnPA $\beq_{REG}$的等价条件]\label{cor:tnpa-equiv}
+一个tnPA进程$(\alpha,\Delta)$满足$\beq_{REG}$\emph{当且仅当}$Var(\Delta)$不包含任何增长变量。
+\end{cor}
+
+需要注意的是，该证明对更加一般的nPA模型并不成立。因为我们在必要性的证明中用到了tnPA中所有进程变量的Norm至少为$1$的限定条件。如果去掉这一限定，那么对于Norm为$0$的那些进程，我们就不能用进程表达式语言上的长度限制来得到Norm上的下界了。如果要克服这一问题，我们需要对进程的行为进行更精细的分析，以得到更强大的性质。
+
+在第\ref{chap:tnpa-alg}中，我们将集中讨论如何找到一个有效的算法对该条件进行判定，并分析该算法的时间复杂度，从而找到解决tnPA的Regularity问题的具体算法。
