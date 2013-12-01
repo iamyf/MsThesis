@@ -1,9 +1,140 @@
-\chapter{Totally Normed PA上多项式时间算法}
+\chapter{Totally Normed PA Regularity的算法}
 \label{chap:tnpa-alg}
+
+本章中，我们将利用第\ref{chap:tnpa-equiv}中定理\ref{thm:tnpa-equiv}中给出的充分必要条件，设计判定tnPA的$\weq_{REG}$和$\beq_{REG}$的算法。我们将证明该问题可以在多项式时间内判定。
 
 \section{增长变量判定算法}
 \label{sec:grow-alg}
 
+在定理\ref{thm:tnpa-equiv}中，我们给出了tnPA的Regularity性质的一个充分必要条件，即增长变量的性质。本节我们对一个给定的tnPA进程$(\alpha,\Delta)$，将给出一个多项式时间算法。由我们PA进程的定义\ref{def:pa}中的假设，对于每个进程变量$X\in Var(\Delta)$，必定存在一个可达的状态，使他可以被激活。所以，我们只需要对输入中给定的规则，判断其中是否包含一个增长变量。
+
+我们现在证明引理\ref{lemma:grow-dec}。
+
+\begin{lem}[增长变量的可判定性 Decdability for Growing Variables]\label{lemma:grow-dec}
+给定一个tnPA进程$(\alpha,\Delta)$，其中是否存在一个增长变量$X\in Var(\Delta)$，是可判定的。
+\end{lem}
+
+\begin{proof}
+见算法\ref{alg:grow} \textsl{GROW}。
+\end{proof}
+
+\begin{algorithm}[htbp]
+\caption{GROW}
+\label{alg:grow}
+\begin{algorithmic}[1]
+\Statex \textbf{Grow$(\Delta)$ }
+\For {all $X\in Var(\Delta)$}
+    \State $S\leftarrow \{X\}$
+    \While {$S\neq Transition1(S)$}
+        \State $S\leftarrow Transition1(S)$
+    \EndWhile
+    \State $S\leftarrow Transition2(S)$
+    \While {$S\neq Transition1(S)$}
+        \State $S\leftarrow Transition1(S)$
+    \EndWhile
+    \If {$X\in S$}
+        \State \Return TRUE
+    \EndIf
+\EndFor
+\State \Return FALSE
+
+\end{algorithmic}
+\end{algorithm}
+
+其中$Transition1$和$Transition2$分别由算法\ref{alg:tran1} \textsl{TRANSITION1}，和算法\ref{alg:tran2} \textsl{TRANSITION2}计算：
+
+\begin{algorithm}[htbp]
+\caption{TRANSITION1}
+\label{alg:tran1}
+\begin{algorithmic}[1]
+\Statex \textbf{Transition1$(S)$}
+\For {all $Y\in Var(\Delta)$}
+    \If {$\exists X\in S$ and a rule $X\act{a}\alpha \in \Delta$ and $Y\in Var(\alpha)$ }
+        \State $S\leftarrow S\cup \{Y\}$
+    \EndIf
+\EndFor
+\State \Return $S$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[htbp]
+\caption{TRANSITION2}
+\label{alg:tran2}
+\begin{algorithmic}[1]
+\Statex \textbf{Transition2$(S)$}
+\State $S^{'}\leftarrow \emptyset$
+\For {all $Y\in Var(\Delta)$}
+    \If {$\exists X\in S$ and a rule $X\act{a}\alpha \in \Delta$ with $Y\in Var(\alpha)$, $Length(\alpha)\geq 2$ and $Y\notin Tail(\alpha)$}
+        \State $S^{'}\leftarrow S^{'}\cup \{Y\}$
+    \EndIf
+\EndFor
+\State \Return $S^{'}$
+\end{algorithmic}
+\end{algorithm}
+\end{proof}
+
+\begin{enumerate}
+\item 算法\ref{alg:grow} \textsl{GROW}的第一步中，对于函数\textsl{Transition1(S)}的迭代调用计算了关系$(X,Y)$的自反传递闭包，其中$(X,Y)$满足存在一条规则$X\act{a}\alpha\in\Delta$，且$Y\in\ Var(\alpha)$。
+
+得到的集合恰好包含了由$X$生成的所有可能被激活的变量。
+
+\item 下一步中，对\textsl{Transition2(S)}的调用，计算了关系$(X,Y)$。$(X,Y)$满足存在一条规则$X\act{a}\alpha\in\Delta$，且有$Y\in\ Var(\alpha)$，$Y\notin Tail(\alpha)$，以及$Lenth(\alpha)\geq 2$。
+
+这一步结束后，集合中所有变量都是被激活的，且集合包含了所有满足不被阻塞，而且经过一步转换后至少还存在另一个变量的变量。
+
+
+\item 算法的最后一步，我们再次迭代调用函数\textsl{Transition1(S)}，它将生成所有包含之前性质的变量的集合。然后我们可以检测变量$X$是否还在所得的集合中。
+
+\end{enumerate}
+
+如果结果是肯定的，那么变量$X$是一个增长变量。
+
+另一方面，如果一个变量是增长的，那么由增长变量的定义\ref{def:grow-var}，由于我们检测了所有变量，所以它的增长性一定能被该算法检测出来。
+
 \section{时间复杂度分析}
 \label{sec:complexity}
+
+在引理\ref{lemma:complexity}中，我们给出了算法的时间复杂度。
+
+\begin{lem}[算法时间复杂度 Complexity of the Algorithm]\label{lemma:complexity}
+该判定算法\ref{alg:grow} \textsl{GROW}的时间复杂度为$\mathcal{O}(n^3+mn)$，其中$n$为输入的规则的个数，$m$为其中最长规则的长度。
+\end{lem}
+
+\begin{proof}
+
+假设输入的进程$(\alpha,\Delta)$中，一共有$n$条规则，其中最长规则的长度为$m$。
+
+那么最多有$n$个互不相同的进程变量。
+\begin{enumerate}
+
+\item 对于每条规则$X\act{a}\alpha\in\Delta$中的进程表达式$\alpha$，我们首先计算$Tail(\alpha)$。这一步的时间复杂度为$\mathcal{O}(mn)$。因为最多只有个$n$集合，对于每个集合，我们最多需要迭代$m$次。
+
+\item 同样，我们也可以对于每个变量，对两个\textsl{TRANSITION}函数进行预处理。这一步，我们个一对每个变量建立一个表，保存满足条件的变量。这一步计算的复杂度为$\mathcal{O}(mn)$，因为我们一共需要处理最多$n$条规则，长度最多为$m$。
+
+\item 接下来我们继续对两个\textsl{TRANSITION}函数进行简单的分析。最大的循环次数，对于任何变量，做多有$n$条不同的规则，所以最多为$n$。对于每条规则，我们对条件的检测需要$\mathcal{O}(1)$的时间，所以这两个函数的时间复杂度为$\mathcal{O}(n)$。
+
+\item 最后，我们考虑主函数\textsl{GROW}。外层循环需要最多执行$n$次，而内层循环在最多执行$n$次后也会到达不动点(Fixpoint)。
+
+\end{enumerate}
+综上，算法总共的时间复杂度为$\mathcal{O}(mn)+\mathcal{O}(n^{2})\cdot \mathcal{O}(n)=\mathcal{O}(n^3+mn)$。
+\end{proof}
+
+由定理\ref{thm:tnpa-equiv}和引理\ref{lemma:grow-dec}，引理\ref{lemma:complexity}。我们可以得到tnPA的$\weq_{REG}$问题的主要结论。
+
+\begin{thm}[tnPA的$\weq_{REG}$]\label{thm:tnpa-wreg}
+给定一个tnPA进程$(\alpha,\Delta)$，它的$\weq_{REG}$问题可以在多项式时间内被判定。时间复杂度为$\mathcal{O}(n^3+mn)$，其中$n$为输入的规则的个数，$m$为其中最长规则的长度。
+\end{thm}
+
+由推论\ref{cor:tnpa-equiv}我们可知，该结论对于tnPA的$\beq_{REG}$同样成立。我们有推论\ref{cor:tnpa-breg}
+
+\begin{cor}[tnPA的$\beq_{REG}$]\label{cor:tnpa-breg}
+给定一个tnPA进程$(\alpha,\Delta)$，它的$\beq_{REG}$问题可以在多项式时间内被判定。时间复杂度为$\mathcal{O}(n^3+mn)$，其中$n$为输入的规则的个数，$m$为其中最长规则的长度。
+\end{cor}
+
+有第\ref{sec:prs}节中介绍的PRS层次中的模型包含关系可知，BPA和BPP都是PA的子模型，所以该结论在tnBPA和tnBPP上都成立。我们有推论\ref{cor:tnbpa-tnbpp}
+
+\begin{cor}[tnBPA和tnBPP的$\weq{REG}$和$\beq_{REG}$]\label{cor:tnbpa-tnbpp}
+给定一个tnBPA或tnBPP进程$(\alpha,\Delta)$，它的$\weq_{REG}$和$\beq_{REG}$问题均可以在多项式时间内被判定。时间复杂度为$\mathcal{O}(n^3+mn)$，其中$n$为输入的规则的个数，$m$为其中最长规则的长度。
+\end{cor}
+
 
