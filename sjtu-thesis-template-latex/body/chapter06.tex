@@ -1,2 +1,119 @@
 \chapter{后续问题研究讨论}
 \label{chap:fut}
+
+在第\ref{chap:tnpa-equiv}章和第\ref{chap:tnpa-alg}章中，我们给出了一个用于判定tnPA进程$\weq_{REG}$和$\beq_{REG}$问题的算法，并分析了它的时间复杂度。同时这个问题对于tnBPA和tnBPP依然成立。本章我们将对一些我们十分感兴趣，但是并未被解决的Regularity问题进行讨论。
+
+有了tnPA上的结论，一个非常自然的问题，就是如果将Totally Normed条件去掉，那我们是否还有可判定性的结论。即考虑Normed PA的$\weq_{REG}$和$\beq_{REG}$问题。由于PA模型的复杂性，所以首先，我们可以分别考虑串行和并行的子模型nBPA和nBPP上的相关问题。我们考虑这两个模型的另一个原因是，他们的$\beq$等价性验证问题已经分别被解决\cite{CzerwiAski2011,Fu2013}，而且nBPA上的$\beq_{REG}$也有了可判定性结论\cite{Fu2013}。所以我们有理由相信，nBPP的$\beq_{REG}$问题有希望在近期内被攻克。
+
+另外，对于tnPN上，我们也可以利用本文中的一些直观，在对模型进行一些限定之后，找到$\weq_{REG}$和$\beq_{REG}$问题的一些思路。
+
+我们在进行无限状态系统验证问题的研究时，另一个十分重要的研究目标就是给定一个问题，我们需要设法证明他的算法复杂性的下界或者不可判定性。我们统称这两类问题为下界问题。我们将在本章最后，讨论Regularity相关的下界问题。
+
+\section{nBPP的$\beq_{REG}$问题}
+\label{sec:nbpp}
+
+本节我们將对nBPP的$\beq_{REG}$的解决思路做一些简单的讨论。我们将在着重讨论$\not\beq_{REG}$的半可判定性。
+
+Czerwi{\'n}ski, Hofman 和Lasota在2011年在\cite{CzerwiAski2011}中给出了nBPP的$\beq$等价的可判定性证明。自从有了这一结论之后，nBPP上的$\beq_{REG}$问题就成为了等待解决的公开问题。
+
+\begin{lem}[nBPP的$\beq$可判定性 nBPP $\beq$ Decidability]\label{lemma:nbpp-beq}
+Normed BPP的$\beq$是可判定的。
+\end{lem}
+
+这样，我们利用引理\ref{lemma:nbpp-beq}和引理\ref{lemma:semi-dec}可知
+
+\begin{cor}[nBPP的$\beq_{REG}$的半可判定性 nBPP $\beq_{REG}$ Semi-Decidability]\label{cor:nbpp-beq-reg-semi}
+Normed BPP的$\beq$是半可判定的。
+\end{cor}
+
+有了\cite{Fu2013}中nBPA的$\beq$和$\beq_{REG}$问题的可判定性结论，我们有理由相信，nBPP的$\beq_{REG}$也是可判定的。有了推论\ref{cor:nbpp-beq-reg-semi}，现在我们只需要证明$\not\beq_{REG}$是半可判定的。一个最直接的思路是找到一个$\not\beq_{REG}$的充分必要条件，然后证明这个条件是半可判定的。
+
+为了证明无限性的半可判定，我们要去寻找nBPP生成无限个互不$\beq$等价的状态的原因。
+
+
+我们知道，我们可以用一个整数向量来表示并行进程，其中每个整数表示对应进程变量上的指数。定一个nBPP进程$(\alpha,\Delta)$，我们将其中能指数上能到达无穷大的进程变量的集合记为$Inf(\alpha,\Delta)$。我们有引理\ref{lemma:nbpp-infi-var-semi}：
+
+\begin{lem}\label{lemma:nbpp-infi-var-semi}
+给定一个nBPP进程$(\alpha,\Delta)$，$Inf(\alpha,\Delta)$是半可判定的。
+\end{lem}
+
+\begin{proof}
+这个集合是一个半线性集合(Semilinear Set)，证明略。
+\end{proof}
+
+为了简化问题，我们提出引理\ref{lemma:nbpp-infi-var}，从而将研究的注意力集中在$Inf(\alpha,\Delta)$上：
+
+\begin{lem}\label{lemma:nbpp-infi-var}
+给定一个nBPP进程$(\alpha,\Delta)$，如果$Inf(\alpha,\Delta)=\emptyset$那么它是Regular的。
+\end{lem}
+
+\begin{proof}
+假设给定进程满足条件，那么它只能在语言上生成有限个不同的进程表达式。
+\end{proof}
+
+如果我们需要在语言上能得到无限个互不相同的进程项，那么我们必须能使得向量中某个整数可以无限增大。另外，BPP是一个上下文无关的模型，所以我们对于进程的行为每次只需要考虑一个进程变量。我们这里仅仅需要考虑那些可以在指数上无限增大的进程变量，即集合$Inf(\alpha,\Delta)$中进程变量的性质。
+
+然而，这仅仅是一个$\beq_{REG}$的必要条件，事实表明，并非所有的$Inf(\alpha,\Delta)$中的进程都会产生无限的状态。为了进一步我们所考虑的进程，我们有引理\ref{lemma:nbpp-beq-reg-infi-norm}
+
+\begin{lem}\label{lemma:nbpp-beq-reg-infi-norm}
+给定一个nBPP进程$(\alpha,\Delta)$，如果存在进程变量$X\in Inf(\alpha,\Delta)$，而且$\|X\|>0$，那么该进程是$\not\beq_{REG}$的。
+\end{lem}
+
+\begin{proof}
+由引理\ref{lemma:infi-path}，该进程的Norm显然可以任意增大(但不是$\infty$)，得证。
+\end{proof}
+
+由引理\ref{lemma:nbpp-infi-var-semi}和\ref{lemma:nbpp-beq-reg-infi-norm}可知这我们无需考虑那些$Norm>0$的进程，因为这种情况可以简单的判定，即检测是否$Inf(\alpha,\Delta)$中有$Norm>0$的进程变量。
+
+我们就将问题简化为，只需要对$Inf(\alpha,\Delta)$中Norm为零的进程进行讨论即可。
+
+由这一思路，我们将定义一种\emph{稳定(Stable)}的进程变量。
+
+\begin{defn}[稳定的进程变量 Stable Variable]\label{def:stable-var}
+给定一个nBPP进程$(\alpha,\Delta)$，一个进程变量$X \in Var(\Delta)$是稳定(Stable)的如果它满足如下性质：
+\begin{itemize}
+	\item 对于所有$Y\in Reach(X)$，我们有$\|Y\|=0$。
+	\item 存在$k\in \mathbb{N},k\geq 1$，满足$X^{k-1}\not\beq X^k\beq X^{k+1}$。
+\end{itemize}
+\end{defn}
+
+我们无需考虑那些$Norm>0$的进程显然，我们有引理\ref{lemma:stable-var}
+
+\begin{lem}\label{lemma:stable-var}
+给定一个nBPP进程$(\alpha,\Delta)$，它是$\beq_{REG}$的，如果所有$X\in Var(\Delta)$都是稳定的进程变量。
+\end{lem}
+
+\begin{proof}
+根据$\beq$的同余(Congurence)性，我们显然可证。
+\end{proof}
+
+这样，对于半可判定性的最后一种情况，我们只需要证明所有$Inf(\alpha,\Delta)$中的进程变量，如果是稳定的，那么必然存在可以\emph(有效计算(Effectively Computable)的常数$C$，使得$k<C$。
+
+\begin{lem}[nBPP $\not\beq_{REG}$ 半可判定算法终止性 Termination of Semi-Decidability Procedure for nBPP $\not\beq_{REG}$]\label{lemma:term}
+给定一个nBPP进程$(\alpha,\Delta)$，如果存在可有效计算(Effectively Computable)的常数$C$，使得如果$V\in Var(\Delta)$是稳定的进程变量，那么存在满足$X^{k-1}\not\beq X^k\beq X^{k+1}$，且$k\leq C$。
+
+则$nBPP$的$\not\beq_{REG}$是半可判定的。
+\end{lem}
+
+\begin{proof}
+我们根据进程变量的Norm分情况讨论：
+\begin{itemize}
+\item 给定一个nPP进程$(\alpha,\Delta)$，对于$Inf(\alpha,\Delta)$中的$Norm>0$的进程，容易判定。
+\item 对于$Norm=0$的进程，如果存在这样可以有效计算的$C$，那么对于每个进程变量，我们都可以有效得判定其是否是稳定的。假设对于某个进程变量$X$，超过$C$仍然找不到对应的$k$，那么由假设可知$X$不是稳定的。我们很容易得到无限个互不$\beq$等价的状态$X^1\not\beq X^2\not\beq\ldots$。如果这样，过程终止，该进程是$\not\beq_{REG}$的。
+\end{itemize}
+于是，如果能有效计算这样的$C$，那么$\not\beq{REG}$是半可判定的。
+\end{proof}
+
+结合推论\ref{cor:nbpp-beq-reg-semi}和引理\ref{lemma:term}，我们可知，如果能有效的计算出这样的常数$C$，那么$\beq_{REG}$是可判定的。
+
+从直观上来分析，这个常数$C$表示了单个进程变量组成的表达式能产生不同状态的上限。为了有效计算这个常数，一个思路是给进程变量确定一个合理的序关系，然后从这个序关系上，自底向上地归纳地求解。需要注意的是，为了能够有效地计算，这个界也只能是和输入的进程规则相关的。
+
+尽管迄今为止，有效的计算$C$的方法还没有被发现。但是种种迹象表明，沿着这个思路继续探究，必定能够完全的解决nBPP上的$\beq_{REG}$问题。
+
+\section{tnPN的$\weq_{REG}$和$\beq_{REG}$问题}
+\label{sec:tnPN}
+
+\section{Regularity问题的下界}
+\label{sec:lower-bound}
+
+
