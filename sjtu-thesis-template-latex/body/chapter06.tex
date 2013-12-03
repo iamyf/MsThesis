@@ -119,7 +119,41 @@ Petri Net是一个在程序分析，软件工程和协议验证方面常用的�
 
 为了研究PN下关于包含内部动作的互模拟关系的Regularity问题，在第\ref{chap:tnpa-equiv}章和第\ref{chap:tnpa-alg}章中PA工作的启发下，我们很自然的可以想到，可以先试图解决Totally Normed限制下的PN的$\weq_{REG}$和$\beq_{REG}$问题。在tnPA的模型中，该条件可以有效地将进程所生成的表达式的语言的数量和其状态的数量建立一定的约束关系。在tnPN的模型中，我们也可以尝试沿着这个思路进行研究。
 
+我们知道，类似PN的并行进程模型都可以用Vector Addition System(VAS)进行表示。由\cite{Rackoff1978,Cardoza1976}，我们有一个关于VAS的有限性(Boundedness)的复杂度结论：
+
+\begin{lem}[VAS Boundedness]\label{lemma:vas}
+给定一个VAS，判定是否其是否只能达到有限的数值(Boundedness)的问题是EXPSPACE完全的。
+\end{lem}
+
+我们知道由于PN和VAS是等价的模型，所以我们有引理\ref{lemma:pn-bound}
+
+\begin{lem}\label{lemma:pn-bound}
+给定一个PN进程，其中是否有一个变量的指数能达到无穷大的问题是EXPSPACE完全的。
+\end{lem}
+
+我们发现，引理\ref{lemma:pn-bound}中的条件，很明显是$\not\weq_{REG}$和$\not\beq_{REG}$的一个必要条件。原因是只有能生成语言上互不相同的无穷多个进程，才可能生成无穷多个互不互模拟的进程。
+
+一个很自然的思路就是我们可以试图去证明这个条件也是tnPN$\not\weq_{REG}$和$\not\beq_{REG}$的一个充分条件。从而利用引理\ref{lemma:pn-bound}中的结论来对该问题进行判定。
+
+现在遇到的困难是，由于tnPN并没有类似于上下文无关模型(BPA，BPP和PA)中的Norm对加法的同余性，所以我们没有办法直接通过简单的Norm的分析，来得到Norm可以不停增加的进程项序列。
+
+现在该问题有两种可能的结果：
+
+\begin{enumerate}
+	\item 通过进一步分类tnPN中的进程变量，更精细地分析它的行为和规则。可以使用类似与归纳法的思路，从而证明Norm增加的序列所需满足的条件。
+
+如果成立，那么我猜想这个问题可能最终是EXPSPACE完全的。
+	\item 通过对\cite{Jancar1996}和推论\ref{cor:pn-beq-und}中的归约进一步分析，证明该问题是不可判定的。
+\end{enumerate}
+
+我个人更倾向与相信第一个猜想。因为，Totally Normed的条件从某种程度上限制了进程变量``消失''的能力，``消失''之前至少要留下``痕迹''。这就为进程表达式的语言上的无穷性和进程状态的语义上的无穷性提供了一个联系，使得Regularity的判定问题更加有可能被解决。而且，第一个猜想中的结论也是更有实际意义的，正如第\ref{chap:pre}章中提到的，我们更希望能得到复杂性上完全的结论。
+
+
 \section{Regularity问题的下界}
 \label{sec:lower-bound}
+
+不仅限于无限状态系统的验证问题，对于计算机理论中的所有问题，人们最感兴趣的都是是否能得到一个完备(Complete)的结论。
+
+而完备的结论包括两个方面，一个是复杂性上界或者可判定性，前文中大部分篇幅所讨论的都是对这类结论的探究；另一方面则是复杂性下界或者不可判定性，接下来我们就在本文的最后部分对PRS的Regularity问题的下界进行一些讨论。
 
 
