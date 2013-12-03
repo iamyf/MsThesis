@@ -113,6 +113,12 @@ Normed BPP的$\beq$是半可判定的。
 \section{tnPN的$\weq_{REG}$和$\beq_{REG}$问题}
 \label{sec:tnPN}
 
+Petri Net是一个在程序分析，软件工程和协议验证方面常用的模型。它是PRS中的完全并行化的一个进程模型。由\cite{Jancar1996}和推论\ref{cor:pn-beq-und}可知，该模型的Regularity问题在仅考虑强互模拟的情况下，是可判定的，相关的$\weq_{REG}$和$\beq_{REG}$问题都是不可判定的。所以我们在研究这两个问题时，至少需要加上Normed限制。
+
+然而，经过第\ref{sec:nbpp}节中的研究，我们知道即使是nPN的一个子模型nBPP，它的$\beq_{REG}$问题尚未完全解决。
+
+为了研究PN下关于包含内部动作的互模拟关系的Regularity问题，在第\ref{chap:tnpa-equiv}章和第\ref{chap:tnpa-alg}章中PA工作的启发下，我们很自然的可以想到，可以先试图解决Totally Normed限制下的PN的$\weq_{REG}$和$\beq_{REG}$问题。在tnPA的模型中，该条件可以有效地将进程所生成的表达式的语言的数量和其状态的数量建立一定的约束关系。在tnPN的模型中，我们也可以尝试沿着这个思路进行研究。
+
 \section{Regularity问题的下界}
 \label{sec:lower-bound}
 
