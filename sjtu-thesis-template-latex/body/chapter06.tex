@@ -117,7 +117,7 @@ Petri Net是一个在程序分析，软件工程和协议验证方面常用的�
 
 然而，经过第\ref{sec:nbpp}节中的研究，我们知道即使是nPN的一个子模型nBPP，它的$\beq_{REG}$问题尚未完全解决。
 
-为了研究PN下关于包含内部动作的互模拟关系的Regularity问题，在第\ref{chap:tnpa-equiv}章和第\ref{chap:tnpa-alg}章中PA工作的启发下，我们很自然的可以想到，可以先试图解决Totally Normed限制下的PN的$\weq_{REG}$和$\beq_{REG}$问题。在tnPA的模型中，该条件可以有效地将进程所生成的表达式的语言的数量和其状态的数量建立一定的约束关系。在tnPN的模型中，我们也可以尝试沿着这个思路进行研究。
+为了研究PN下关于包含内部动作的互模拟关系的Regularity问题，在第\ref{chap:tnpa-equiv}章和第\ref{chap:tnpa-alg}章中PA工作的启发下，我们很自然的可以想到，可以先试图解决Totally Normed限制下的PN的$\weq_{REG}$和$\beq_{REG}$问题。在tnPA的模型中，Totally Normed条件可以有效地将进程所生成的表达式的语言的数量和其状态的数量建立一定的约束关系，这是进行进程有限性判定的关键。在tnPN的模型中，我们也可以尝试沿着这个思路进行研究。
 
 我们知道，类似PN的并行进程模型都可以用Vector Addition System(VAS)进行表示。由\cite{Rackoff1978,Cardoza1976}，我们有一个关于VAS的有限性(Boundedness)的复杂度结论：
 
@@ -142,11 +142,16 @@ Petri Net是一个在程序分析，软件工程和协议验证方面常用的�
 \begin{enumerate}
 	\item 通过进一步分类tnPN中的进程变量，更精细地分析它的行为和规则。可以使用类似与归纳法的思路，从而证明Norm增加的序列所需满足的条件。
 
-如果成立，那么我猜想这个问题可能最终是EXPSPACE完全的。
-	\item 通过对\cite{Jancar1996}和推论\ref{cor:pn-beq-und}中的归约进一步分析，证明该问题是不可判定的。
+如果成立，那么可以试图证明
+
+\begin{conj}[tnPN $\weq_{REG}$和$\beq_{REG}$问题]\label{conj:tnpn-reg}
+tnPN的$\weq_{REG}$和$\beq_{REG}$问题是EXPSPACE完全的。
+\end{conj}
+
+	\item 如果猜想\ref{conj:tnpn-reg}不成立，我们可以通过对\cite{Jancar1996}和推论\ref{cor:pn-beq-und}中的归约进一步分析，证明该问题是不可判定的。
 \end{enumerate}
 
-我个人更倾向与相信第一个猜想。因为，Totally Normed的条件从某种程度上限制了进程变量``消失''的能力，``消失''之前至少要留下``痕迹''。这就为进程表达式的语言上的无穷性和进程状态的语义上的无穷性提供了一个联系，使得Regularity的判定问题更加有可能被解决。而且，第一个猜想中的结论也是更有实际意义的，正如第\ref{chap:pre}章中提到的，我们更希望能得到复杂性上完全的结论。
+由作者对模型和等价关系的直观，个人更倾向于相信猜想\ref{conj:tnpn-reg}中EXPSPACE完全的结论成立。因为，Totally Normed的条件从某种程度上限制了进程变量``消失''的能力，``消失''之前至少要留下``痕迹''。这就为进程表达式的语言上的无穷性和进程状态的语义上的无穷性提供了一个联系，使得Regularity的判定问题更加有可能被解决。而且，第一个猜想中的结论也是更有实际意义的，正如第\ref{chap:pre}章中提到的，我们更希望能得到复杂性上完全的结论。
 
 
 \section{Regularity问题的下界}
@@ -154,6 +159,57 @@ Petri Net是一个在程序分析，软件工程和协议验证方面常用的�
 
 不仅限于无限状态系统的验证问题，对于计算机理论中的所有问题，人们最感兴趣的都是是否能得到一个完备(Complete)的结论。
 
-而完备的结论包括两个方面，一个是复杂性上界或者可判定性，前文中大部分篇幅所讨论的都是对这类结论的探究；另一方面则是复杂性下界或者不可判定性，接下来我们就在本文的最后部分对PRS的Regularity问题的下界进行一些讨论。
+而完备的结论包括两个方面，一个是复杂性上界或者可判定性，前文中大部分篇幅所讨论的都是对这类结论的探究；另一方面则是复杂性下界或者不可判定性。直观的来说，上界刻画了一个问题现有的解决方法的复杂度，下界刻画了一个问题本身的解决难度。如果一个问题的上界和下届最终被证明是相同的复杂度，那么称这个问题为该复杂度下完备的，例如NP完备问题。只有证明了一个问题是完备的，我们才能说这个问题的复杂度已经被彻底研究了。
 
+接下来我们就在本文的最后部分对PRS的Regularity问题的下界进行一些讨论。从而得到一些值得去研究的问题。
+
+我们在第\ref{sec:prs-reg-result}节中总结PRS中Regularity问题相关结论时，已经将现有的结论按照不同的模型分别填在几个表格中。其中，我们还得到了推论\ref{cor:pn-beq-und}中Petri Net的$\beq_{REG}$问题的不可判定性。
+
+通过对无限状态系统验证中几个问题下界结论的总结，我们可以发现，给定某个PRS中的模型，其Regularity问题的下界往往与Equivalence Checking问题相关，其下界的证明经常是通过Equivalence Checking问题直接构造一个归约，而证明的。例如在\cite{Srba2002b,Srba2002a}中，其BPA和BPP的Regularity问题的下界都是通过对应的Equivalence Checking问题归约而得到的。
+
+下面首先列出几个我认为可以去思考的问题以及可能的结论：
+
+\begin{enumerate}
+\item 在\cite{Kiefer2012}中，BPA的$\seq$等价验证问题被证明为EXPTIME难的，但是这个证明并不能直接用来归约证明$\seq_{REG}$问题的EXPTIME下界。而现在BPA的$\seq_{REG}$问题的下界仅仅被证明是PSPACE难的\cite{Srba2002b}。直观的来说，这个下界是非常有可能被提高到EXPTIME难的。
+
+我们可以尝试去证明：
+
+\begin{conj}[BPA $\seq_{REG}$问题下界]\label{conj:bpa-seq-reg}
+BPA的$\seq_{REG}$问题是EXPTIME难的。
+\end{conj}
+
+\item 在\cite{Fu2013}中，nBPA的$\beq_{REG}$问题被证明是可判定的，但是并没有证明任何原始递归的上界，同时也没有给出任何下界的证明。而相应的nBPA的$\weq_{REG}$问题仅仅是NP难的\cite{Srba2003,StriAbra1998}。
+
+我们可以尝试去证明：
+
+\begin{conj}[nBPA $\beq_{REG}$问题下界]\label{conj:nbpa-beq-reg}
+nBPA的$\beq_{REG}$问题是NP难的。
+\end{conj}
+
+\item 在\cite{Srba2003}中，nBPP的$\weq_{REG}$问题都被证明是PSPACE难的，我们可以试图通过修改证明中构造的进程，使其满足$\beq_{REG}$性质。
+
+我们可以尝试去证明：
+
+\begin{conj}[nBPP $\beq_{REG}$问题下界}\label{conj:nbpp-beq-reg}
+nBPP的$\beq_{REG}$问题是PSPACE难的。
+\end{conj}
+
+\item 对nPDA，我们也有$\weq_{REG}$问题是EXPTIME难的\cite{Kucera2002a,Srba2002b}。而对应的$\beq_{REG}$问题并没有给出下界结论。
+
+我们可以尝试去证明：
+
+\begin{conj}[nPDA $\beq_{REG}$问题下界]\label{conj:npda-beq-reg}
+nPDA的$\beq_{REG}$问题是EXPTIME难的。
+\end{conj}
+
+\item 同理，对nPN，我们有$\weq_{REG}$问题是EXPSPACE难的\cite{Cardoza1976}。而对应的$\beq_{REG}$问题的下界还没有一个严格的证明。
+
+我们可以尝试去证明：
+
+\begin{conj}[nPN $\beq_{REG}$问题下界]\label{conj:npn-beq-reg}
+nPN的$\beq_{REG}$问题是EXPSPACE难的。
+\end{conj}
+\end{enumerate}
+
+以上几个问题，其中猜想\ref{conj:nbpa-beq-reg}，\ref{conj:nbpp-beq-reg}，\ref{conj:npda-beq-reg}，和\ref{conj:npn-beq-reg}，从直观上都可以直接对归约中构造的进程进行简单的修改，让其符合$\beq_{REG}$的性质，从而得到证明。而对于猜想\ref{conj:bpa-seq-reg}，则似乎没有那么简单。一个思路是重新找一个EXPTIME完全的问题，构造一个新的归约证明。
 
