@@ -94,7 +94,11 @@
 \section{时间复杂度分析}
 \label{sec:complexity}
 
-在引理\ref{lemma:complexity}中，我们给出了算法的时间复杂度。
+在第\ref{sec:grow-alg}节中，我们给出了判定增长变量的\textsl{GROW}算法以及其正确性(Soundness)和完备性(Completeness)的分析和证明。在本节中，我们将进一步地分析它的时间复杂度，证明其复杂度是\emph{多项式时间的(Polynomial Time)}的。
+
+我们知道，在现实的计算中，通常可以处理(Feasible)的计算必须是多项式时间的。如果超过了这个限制范围，比如是\emph{指数时间(Exponential Time)}的，那么计算的时间将会随着问题规模的增长呈指数增长，这种开销的增长是我们所不能忍受的。为了能让本文中的算法有更好的实际应用价值，我们必须对其做复杂度分析。
+
+在引理\ref{lemma:complexity}中，我们给出了算法\textsl{GROW}的时间复杂度。
 
 \begin{lem}[算法时间复杂度 Complexity of the Algorithm]\label{lemma:complexity}
 该判定算法\ref{alg:grow} \textsl{GROW}的时间复杂度为$\mathcal{O}(n^3+mn)$，其中$n$为输入的规则的个数，$m$为其中最长规则的长度。
@@ -137,4 +141,4 @@
 给定一个tnBPA或tnBPP进程$(\alpha,\Delta)$，它的$\weq_{REG}$和$\beq_{REG}$问题均可以在多项式时间内被判定。时间复杂度为$\mathcal{O}(n^3+mn)$，其中$n$为输入的规则的个数，$m$为其中最长规则的长度。
 \end{cor}
 
-
+到此为止，我们就完成了对Totally Normed PA相关的$\weq_{REG}$和$\beq_{REG}$问题可判定性的研究，并证明了其多项式的时间复杂度。
