@@ -12,7 +12,11 @@
 \section{nBPP的$\beq_{REG}$问题}
 \label{sec:nbpp}
 
-本节我们將对nBPP的$\beq_{REG}$的解决思路做一些简单的讨论。我们将在着重讨论$\not\beq_{REG}$的半可判定性。
+本节我们將对nBPP的$\beq_{REG}$的解决思路做一些简单的讨论。我们将在着重讨论$\not\beq_{REG}$的半可判定性。我们希望能够证明：
+
+\begin{conj}[nBPP 的$\beq_{REG}$问题]\label{conj:nbpp-reg}
+nBPP的$\beq_{REG}$问题是可判定的。
+\end{conj}
 
 Czerwi{\'n}ski, Hofman 和Lasota在2011年在\cite{CzerwiAski2011}中给出了nBPP的$\beq$等价的可判定性证明。自从有了这一结论之后，nBPP上的$\beq_{REG}$问题就成为了等待解决的公开问题。
 
@@ -29,7 +33,6 @@ Normed BPP的$\beq$是半可判定的。
 有了\cite{Fu2013}中nBPA的$\beq$和$\beq_{REG}$问题的可判定性结论，我们有理由相信，nBPP的$\beq_{REG}$也是可判定的。有了推论\ref{cor:nbpp-beq-reg-semi}，现在我们只需要证明$\not\beq_{REG}$是半可判定的。一个最直接的思路是找到一个$\not\beq_{REG}$的充分必要条件，然后证明这个条件是半可判定的。
 
 为了证明无限性的半可判定，我们要去寻找nBPP生成无限个互不$\beq$等价的状态的原因。
-
 
 我们知道，我们可以用一个整数向量来表示并行进程，其中每个整数表示对应进程变量上的指数。定一个nBPP进程$(\alpha,\Delta)$，我们将其中能指数上能到达无穷大的进程变量的集合记为$Inf(\alpha,\Delta)$。我们有引理\ref{lemma:nbpp-infi-var-semi}：
 
