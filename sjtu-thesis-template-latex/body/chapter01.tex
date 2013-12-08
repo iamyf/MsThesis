@@ -10,7 +10,7 @@
 
 在这些计算模型的研究中，涉及到一个计算机科学中十分重要的领域：形式化验证(Formal Verification)。而这些计算模型，大多数都可以描述无限状态系统。对无限状态系统的形式化验证(Verification on Infinite State Systems)，是现今理论计算机科学中的一个热门的研究方向，它包含了一系列具有重要意义的研究课题。这些问题往往可以与可计算理论(Computability), 计算复杂性理论(Computational Complexity)，算法(Algorithm)等领域中的一些经典问题相联系起来，从而得出许多振奋人心的可计算性或复杂性结论。
 
-为了对这些模型进行验证，我们需要选择合适的等价关系(Equivalence Relation)。人们最初研究的等价关系是语言等价(Language Equivalence)，然而即使对于上下文无关语言(Context Free Language)，其语言等价也是不可判定的\cite{Hopcroft1979}。而不可判定的等价关系从验证角度来说是用处不大的。于是许多基于观测理论(Observation Theory) 中互模拟(Bisimulation) 概念的等价关系被提出，最早的是由 Park 提出的强互模拟(Strong Bisimulation)\cite{Park1981}。随后，为了区别系统中内部动作和外部动作，Milner引入了$\tau$动作表示系统内部的转换，并且定义了弱互模拟(Weak Bisimulation)\cite{Milner1989}。为了更加精细地区分$\tau$动作对系统状态的影响，van Glabbeek和 Weijland提出了Branching 互模拟(Branching Bisimilarity)\cite{Glabbeek1996}。这些基于互模拟的等价关系，是研究验证问题的理论基础。
+为了对这些模型进行验证，我们需要选择合适的等价关系(Equivalence Relation)。人们最初研究的等价关系是语言等价(Language Equivalence)，然而即使对于上下文无关语言(Context Free Language)，其语言等价也是不可判定的\cite{Hopcroft1979}。而不可判定的等价关系从验证角度来说是用处不大的。于是许多基于观测理论(Observation Theory) 中互模拟(Bisimulation) 概念的等价关系被提出，最早的是由 Park 提出的强互模拟(Strong Bisimulation)\cite{Park1981}。随后，为了区别系统中内部动作和外部动作，Milner引入了$\tau$动作表示系统内部的转换，并且定义了弱互模拟(Weak Bisimulation)\cite{Milner1989}。为了更加精细地区分$\tau$动作对系统状态的影响，van Glabbeek和 Weijland提出了分支互模拟(Branching Bisimilarity)\cite{Glabbeek1996}。这些基于互模拟的等价关系，是研究验证问题的理论基础。
 
 在研究无限状态系统时，系统的模型可以使用进程(Process)进行表示。对于各种不同种类的无限状态系统，都可以利用一个统一的进程代数模型进行表示，即进程重写系统(Process Rewrite System, 简称PRS)\cite{Mayr2000}。PRS是一个具有一般性的进程模型，它提供不同模型的关于强互模拟的表达能力的层次结构。许多常见的进程代数模型都可以在这个层次结构中找到。
 
@@ -25,17 +25,17 @@
 
 这些研究所涉及到的大多数模型都可以由进程重写系统所产生\cite{Mayr2000}，这些研究都极大的提升了我们对于一些经典无限状态系统模型的认识。这个框架下包括了许多我们熟悉的模型，如基本进程代数(Basic Process Algebra, 简称BPA)\cite{Bergstra1985}，基本并行进程(Basic Parallel Process, 简称BPP)\cite{Christensen1993}，进程代数(Process Algebra，简称PA)\cite{Baeten1990}，下推自动机(Pushdown Automaton，简称PDA)\cite{Hopcroft1979}以及Petri网(Petri Net，简称PN)\cite{Peterson1977}。这些模型关于互模拟等价的表达能力在进程重写系统中产生了一个严格包含关系的层次结构，这种结构使得我们的研究更加具有效率。例如一个模型的复杂性上界结论可以直接隐含其子模型上的结论，而如果对于某个模型中一个问题，我们能在其某个子模型上证明它的复杂性下界，那这个结论在该模型上显然也成立。以上即为本文中的研究所涉及到的模型。
 
-在这个无限状态系统验证的领域中，人们最初的兴趣总是集中在对Equivalence Checking问题的研究。经过20年的发展，关于强互模拟关系的判定研究已经比较成熟。最早的BPA上的判定性算法是通过对进程的分解技术实现的\cite{Baeten1993,Christensen1992}，经过对该技术的改进和对模型的进一步限定，在Normed BPA和Normed BPP上，强互模拟都有了多项式时间的判定性算法\cite{Hirshfeld,Hirshfelda}，在这里，Normed是对于进程模型的一个限定条件，它规定了模型必须可以到达空进程。同时，对于一般的BPA和BPP，2-EXPTIME和PSPACE完全的时间复杂性也分别被证明\cite{Burkart1995,Jancar2012,Jancar2003}。对于PDA，强互模拟是可判定的\cite{Senizergues1998,Stirling1998}，同时对Normed PA强互模拟的判定也被证明是在2-NEXPTIME的时间复杂度内可判定的\cite{Hirshfeldb}。然而，PN的强互模拟等价性即使在Normed条件的限定下也是不可判定的\cite{Jancar1995}。 
+在这个无限状态系统验证的领域中，人们最初的兴趣总是集中在对Equivalence Checking问题的研究。经过20年的发展，关于强互模拟关系的判定研究已经比较成熟。最早的BPA上的判定性算法是通过对进程的分解技术实现的\cite{Baeten1993,Christensen1992}，经过对该技术的改进和对模型的进一步限定，在正规化BPA(Normed BPA)和正规化BPP(Normed BPP)上，强互模拟都有了多项式时间的判定性算法\cite{Hirshfeld,Hirshfelda}，在这里，正规化(Normedness)是对于进程模型的一个限定条件，它规定了模型必须可以到达空进程。同时，对于一般的BPA和BPP，2-EXPTIME和PSPACE完全的时间复杂性也分别被证明\cite{Burkart1995,Jancar2012,Jancar2003}。对于PDA，强互模拟是可判定的\cite{Senizergues1998,Stirling1998}，同时对正规化PA强互模拟的判定也被证明是在2-NEXPTIME的时间复杂度内可判定的\cite{Hirshfeldb}。然而，PN的强互模拟等价性即使在正规化条件的限定下也是不可判定的\cite{Jancar1995}。 
 
-但是在实际的系统中，例如在程序分析和数据库系统中，很多系统的转换只能用内部动作来描述，所以更具有实际意义的通常是区分系统内部动作的弱互模拟和Branching互模拟。许多模型关于带有内部动作的互模拟等价关系判定问题都被证明是不可判定的\cite{Jancar2008}。然而，对于Branching互模拟的判定问题近两年得到了很大的突破。Normed BPP和Normed BPA上关于Branching互模拟等价的可判定性分别被证明\cite{CzerwiAski2011,Fu2013}。这两个结论是十分令人兴奋的，它们为Branching互模拟等价的相关研究开辟了新的道路。
+但是在实际的系统中，例如在程序分析和数据库系统中，很多系统的转换只能用内部动作来描述，所以更具有实际意义的通常是区分系统内部动作的弱互模拟和分支互模拟。许多模型关于带有内部动作的互模拟等价关系判定问题都被证明是不可判定的\cite{Jancar2008}。然而，对于分支模拟的判定问题近两年得到了很大的突破。正规化BPP和正规化BPA上关于分支互模拟等价的可判定性分别被证明\cite{CzerwiAski2011,Fu2013}。这两个结论是十分令人兴奋的，它们为分支互模拟等价的相关研究开辟了新的道路。
 
-Finiteness的判定是一个和Regularity相似但是直观上更加容易的问题。因为该问题中有限状态系统是给定的，我们需要做的仅仅是判定它和给定系统是否等价。关于各种互模拟关系的Finitness问题通常都有多项式时间复杂度的快速解法。例如BPA和Normed BPP中关于弱互模拟和Branching互模拟的finiteness都有多项式时间算法\cite{Kucera2002,Fu2009}。即使没有多项式时间的算法，关于PDA，PA和PN关于强互模拟分别是PSPACE\cite{Kucera2002a}，co-NEXPTIME\cite{Goller2011}和可判定的\cite{Jancar1995a}。显然，通常这些问题都比对应的Equivalence Checking问题有着更好的计算复杂性和可判定性。而Regularity问题在某种意义上提供了联系这两个问题的一个桥梁：如果某个进程满足Regularity性质，那么我们就可以用更快速的Finiteness判定的算法来进行Equivalence Checking的工作。
+Finiteness的判定是一个和Regularity相似但是直观上更加容易的问题。因为该问题中有限状态系统是给定的，我们需要做的仅仅是判定它和给定系统是否等价。关于各种互模拟关系的Finitness问题通常都有多项式时间复杂度的快速解法。例如BPA和正规化BPP中关于弱互模拟和分支互模拟的finiteness都有多项式时间算法\cite{Kucera2002,Fu2009}。即使没有多项式时间的算法，关于PDA，PA和PN关于强互模拟分别是PSPACE\cite{Kucera2002a}，co-NEXPTIME\cite{Goller2011}和可判定的\cite{Jancar1995a}。显然，通常这些问题都比对应的Equivalence Checking问题有着更好的计算复杂性和可判定性。而Regularity问题在某种意义上提供了联系这两个问题的一个桥梁：如果某个进程满足Regularity性质，那么我们就可以用更快速的Finiteness判定的算法来进行Equivalence Checking的工作。
 
-在现阶段，关于强互模拟关系的Regularity问题通常在可判定性上有了不错的结果。在BPA上关于强互模拟关系的Regularity问题被证明是2-EXPTIME的\cite{Burkart1995,Burkart1996},而对于BPP则是PSPACE完全的\cite{Kot2005a}。在PDA上，现阶段只证明了Normed条件下的可判定性，而且有一个多项式时间的算法\cite{Esparza2000}。关于PA，也仅在Normed条件下有一个多项式时间的算法\cite{Kucera1996}。而对于PN，我们有Regularity的可判定性,并且在引入内部动作后该问题变为不可判定的\cite{Jancar1995a}。
+在现阶段，关于强互模拟关系的Regularity问题通常在可判定性上有了不错的结果。在BPA上关于强互模拟关系的Regularity问题被证明是2-EXPTIME的\cite{Burkart1995,Burkart1996},而对于BPP则是PSPACE完全的\cite{Kot2005a}。在PDA上，现阶段只证明了正规化条件下的可判定性，而且有一个多项式时间的算法\cite{Esparza2000}。关于PA，也仅在正规化条件下有一个多项式时间的算法\cite{Kucera1996}。而对于PN，我们有Regularity的可判定性,并且在引入内部动作后该问题变为不可判定的\cite{Jancar1995a}。
 
-在互模拟等价关系引入内部动作之后，我们现阶段已知的Regularity问题的可判定结论就十分有限了。现在唯一具有实际意义的结论就是由Fu在2013年证明的，关于Branching互模拟，在Normed BPA上Regularity问题的可判定性\cite{Fu2013}。
+在互模拟等价关系引入内部动作之后，我们现阶段已知的Regularity问题的可判定结论就十分有限了。现在唯一具有实际意义的结论就是由Fu在2013年证明的，关于分支互模拟，在正规化BPA上Regularity问题的可判定性\cite{Fu2013}。
 
-为了简化模型，有的时候研究的模型可以加上Totally Normed条件。在该限定下关于弱互模拟和Branching互模拟的问题通常更好的可判定行结论或者算法。H\"{u}ttel最早在\cite{Huttel1992}中引入了该限定，并证明了Totally Normed BPP的Branching互模拟的可判定性。Chen也在这一限定条件下证明了Totally Normed BPA和Totally Normed BPP关于弱互模拟的可判定性\cite{Chen2008a,Chen2008}。
+为了简化模型，有的时候研究的模型可以加上完全正规化(Totally Normed)条件。在该限定下关于弱互模拟和分支互模拟的问题通常更好的可判定行结论或者算法。H\"{u}ttel最早在\cite{Huttel1992}中引入了该限定，并证明了完全正规化BPP的分支互模拟的可判定性。Chen也在这一限定条件下证明了完全正规化BPA和完全正规化BPP关于弱互模拟的可判定性\cite{Chen2008a,Chen2008}。
 
 \section{主要工作}
 \label{sec:contribution}
@@ -44,14 +44,14 @@ Finiteness的判定是一个和Regularity相似但是直观上更加容易的问
 
 \begin{enumerate}
 	\item 归纳总结了PRS上Regularity问题的现有结论与技术，给出了一些解决Regularity问题所用到的技术和引理。
-	\item 对Totally Normed PA关于弱互模拟和Branching互模拟关系的Regularity问题给出了一个多项式时间算法。证明了该算法的正确性，并做了复杂度分析。该算法的时间复杂度是$\mathscr{O}(n^3+mn)$的，其中$m$和$n$都是和输入模型相关的参数。该算法对PA的子模型BPA和BPP也成立。
-	\item 对Normed BPP关于Branching互模拟关系以及Totally Normed PN关于弱互模拟和Branching互模拟关系的Regularity问题的研究思路和证明技术进行了讨论，并为今后的进一步工作提供了一定的思路。
+	\item 对完全正规化PA关于弱互模拟和分支互模拟关系的Regularity问题给出了一个多项式时间算法。证明了该算法的正确性，并做了复杂度分析。该算法的时间复杂度是$\mathscr{O}(n^3+mn)$的，其中$m$和$n$都是和输入模型相关的参数。该算法对PA的子模型BPA和BPP也成立。
+	\item 对正规化BPP关于分支互模拟关系以及完全正规化 PN关于弱互模拟和分支互模拟关系的Regularity问题的研究思路和证明技术进行了讨论，并为今后的进一步工作提供了一定的思路。
 	\item 针对Regularity问题的下界研究提出了一些现阶段似乎可以的问题，通过归约直接得出了一些有用的推论。并根据不同的模型和等价关系的性质，对将要研究的问题提出一些可能结论的猜想。
 \end{enumerate}
 
-本文的工作讨论的问题是属于无限状态系统验证领域中的一部分工作，和该领域中很多经典的问题都有交叉。在得到了关于Totally Normed PA上不错结论的同时，也提出了对后续问题的解决十分具有启发意义的研究思路。
+本文的工作讨论的问题是属于无限状态系统验证领域中的一部分工作，和该领域中很多经典的问题都有交叉。在得到了关于完全正规化PA上不错结论的同时，也提出了对后续问题的解决十分具有启发意义的研究思路。
 
 \section{章节安排}
 \label{sec:section}
 
-在本文的第\ref{chap:pre}章中，将具体介绍本文讨论的问题所涉及到的进程重写系统中的各种模型，验证中用到的各种互模拟等价关系，以及验证中几类具体的问题；第\ref{chap:relat}章中，将会介绍Regularity问题一些已有的结论和解决Regularity问题所需要用到的技术和一些引理，以及直接得到的推论；第\ref{chap:tnpa-equiv}章中，将会给出并证明Totally Normed PA关于弱互模拟和Branching互模拟的一个等价条件；第\ref{chap:tnpa-alg}章中，将会给出该问题的多项式时间算法，并做计算复杂性分析；第\ref{chap:fut}章中，将对后续准备解决的问题决进行一些讨论，给出一些技术上的引理结论上和猜想；最后，将对全文的工作进行总结。
+在本文的第\ref{chap:pre}章中，将具体介绍本文讨论的问题所涉及到的进程重写系统中的各种模型，验证中用到的各种互模拟等价关系，以及验证中几类具体的问题；第\ref{chap:relat}章中，将会介绍Regularity问题一些已有的结论和解决Regularity问题所需要用到的技术和一些引理，以及直接得到的推论；第\ref{chap:tnpa-equiv}章中，将会给出并证明完全正规化PA关于弱互模拟和分支互模拟的一个等价条件；第\ref{chap:tnpa-alg}章中，将会给出该问题的多项式时间算法，并做计算复杂性分析；第\ref{chap:fut}章中，将对后续准备解决的问题决进行一些讨论，给出一些技术上的引理结论上和猜想；最后，将对全文的工作进行总结。

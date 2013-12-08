@@ -2,10 +2,42 @@
 
 \begin{abstract}
 
-  \keywords{\large 上海交大 \quad 饮水思源 \quad 爱国荣校}
+近年来，无限状态系统的验证成为了一个十分热门的研究领域。其中研究的重要问题不仅仅有对系统间等价的判定，还包括对系统和特定有限系统的等价性和系统的有限性判定。有限性问题所研究的是，给定一个系统，是否存在一个有限状态系统与之关于某个给定的等价关系相等。
+
+通常在研究系统间等价性判定的同时一起研究其对应的有限性问题是对我们大有裨益的。有限性问题在模型检测和程序分析的领域都扮演了非常重要的角色。在实际应用中，如果存在一个可行的方法，能检测一个正则系统与一个有限系统的等价性，那么我们就可以这个过程来检测一个系统与有限系统的等价性，假设我们可以检测系统的有限性，即正则性。
+
+该问题十分依赖于我们选择研究的等价关系。我们通常会使用互模拟等价的概念，它是一种语义上的观测等价。它和语言等价相比更有区分性，同时为我们提供了强大的计算可行性和一个美妙的博弈论描述。对于强互模拟关系，我们研究了大量关于它的可判定性和计算复杂性结论。然而，类似于弱互模拟和分支互模拟关系的互模拟引入了系统内部的不可见动作。不可见动作的引入，即为等价关系提供了更精确的描述，也为它的判定带来了更大的难度。
+
+验证问题的研究，大多数都是在进程重写系统中的范围内进行的。这是一个包含了很多无限状态系统的一般的模型。比如基本进程代数(BPA)，基本并发进程(BPP)，下推自动机(PDA)，Petri网(PN)和进程代数(PA)。
+
+在本文中，我们对现阶段进程重写系统中的有限性问题的研究做了总结。我们罗列了现有的结论，并分析了一些一般性的技术。更进一步的，我们给出了一个关于Petri网关于分支互模拟的有限性的不可判定性的推论。
+
+本文的主要贡献是解决了完全正规化的进程代数的关于弱互模拟和分支互模拟的有限性问题。其中完全正规化是对于进程系统输入规则的一个限制。在文中，我们证明了完全正规化进程代数无限性的一个等价条件。我们给出了判定这个条件的算法。它的时间复杂度为$\mathscr{O}(n^3+mn)$，其中$n$是转换规则的条数，$m$是最长规则的长度。进程代数是一个一般的上下文无关模型，所以这个算法对完全正规化的基本进程代数和基本并发进程都是适用的。
+
+另外，本文中还讨论了正规化的基本并发进程关于分支互模拟的有限性，以及完全正规化的Petri网关于弱互模拟和分支互模拟的有限性问题。本文中讨论了一些有用的引理和证明思路。
+
+最后，本文还涉及了进程重写系统有限性问题的不可判定性和计算复杂性下界的证明。我们罗列了一些问题和猜想，作为未来的工作。
+
+  \keywords{\large 进程重写系统 \quad 有限性 \quad 互模拟等价关系 \quad 可判定性 \quad 多项式时间算法}
 \end{abstract}
 
 \begin{englishabstract}
 
-  \englishkeywords{\large SJTU, master thesis, XeTeX/LaTeX template}
+Verification in infitite state systems has been an active research topic. Not only the problems of equivalence checking, but also the problems of finiteness and regularity checking are of great importance. The regularity problem asks whether there exists a finite state system which is equivalent to a given system with respect to a certain equivalence relation. 
+
+It is often profitable to carry out our correlated investigations into an equivalence checking problem together with its regularity checking problem. Regularity checking plays an important role in model checking and programming analysis. Practically if there is a feasible procedure to check the equivalence of a regular process with a fintie state system, then we can check the equivalence between a process and a finite state system in case it is regular.
+
+The issue depends crucially on the equivalence relation we choose for study. We usually use the notion of bisimularity, which is a type of observational semantic equivalence relation. It is more discriminal than the notion of language equivalence, which brings us great computational feasibility as well as a graceful game theoretical description. Decidability and complexity issues have been extensively studied for strong bisimilarity. Nevertheless, bisimulation equivalence relations like weak bisimilarity or branching bisimilarity introduce the internal silent actions. The introduction of silent actions brings us the precision for the description as well as the complexity for the checking of the equivalence relation.
+
+Most of the verification works have been carried out in the setting of process rewrite systems. It is a general model which includes most of the infinite state models, like basic process algebra (BPA), basic parallel process (BPP), pushdown automata (PDA), petri net (PN), and process algebra (PA).
+
+In this paper, a conclusion of the current studies in the regularity problems on process rewrite systems is given. The results are listed and some general techniques are analyzed. Moreover, a corollary for the undecidability for the regularity of petri net with respect to branching bisimilarity is given.
+
+The main contribution of this papar is a solution of the regularity problem for totally normed process algebra with respect to weak and branching bisimilarity. The notion of totally normed is a constraint on the rules of the input system. An equivalent condition for the infiniteness of totally normed process algebra is proved in this paper. A polynomial time deciding algorithm is given. Its time complexity is $\mathscr{O}(n^3+mn)$, where $n$ is the number of transition rules and $m$ is the maximal length of rules. Process algebra is a general context free model, thus the algorithm works for totally normed basic process algebra and basic parallel process as well.
+
+Further, the regularity of normed basic parallel process with respect to branching bisimilarity and the regularity of totally normed petri net with respect to weak and branching bisimilarity are also discussed in this paper. Some useful lemmas and proof ideas are discussed in our paper.
+
+Finally, the undecidability and complexity lower bounds for regularity problems in process rewrite systems are also mentioned. Some problems and conjectures are listed as the future work.
+
+  \englishkeywords{\large Process Rewrite System, \quad Regularity, \quad Bisimulation Equivalence, \quad Decidability, \quad Polynomial Time Algorithm}
 \end{englishabstract}

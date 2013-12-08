@@ -3,13 +3,13 @@
 
 在第\ref{chap:tnpa-equiv}章和第\ref{chap:tnpa-alg}章中，我们给出了一个用于判定tnPA进程$\weq_{REG}$和$\beq_{REG}$问题的算法，并分析了它的时间复杂度。同时这个问题对于tnBPA和tnBPP依然成立。本章我们将对一些我们十分感兴趣，但是并未被解决的Regularity问题进行讨论。
 
-有了tnPA上的结论，一个非常自然的问题，就是如果将Totally Normed条件去掉，那我们是否还有可判定性的结论。即考虑Normed PA的$\weq_{REG}$和$\beq_{REG}$问题。由于PA模型的复杂性，所以首先，我们可以分别考虑串行和并行的子模型nBPA和nBPP上的相关问题。我们考虑这两个模型的另一个原因是，他们的$\beq$等价性验证问题已经分别被解决\cite{CzerwiAski2011,Fu2013}，而且nBPA上的$\beq_{REG}$也有了可判定性结论\cite{Fu2013}。所以我们有理由相信，nBPP的$\beq_{REG}$问题有希望在近期内被攻克。
+有了tnPA上的结论，一个非常自然的问题，就是如果将完全正规化条件去掉，那我们是否还有可判定性的结论。即考虑正规化PA的$\weq_{REG}$和$\beq_{REG}$问题。由于PA模型的复杂性，所以首先，我们可以分别考虑串行和并行的子模型nBPA和nBPP上的相关问题。我们考虑这两个模型的另一个原因是，他们的$\beq$等价性验证问题已经分别被解决\cite{CzerwiAski2011,Fu2013}，而且nBPA上的$\beq_{REG}$也有了可判定性结论\cite{Fu2013}。所以我们有理由相信，nBPP的$\beq_{REG}$问题有希望在近期内被攻克。
 
 另外，对于tnPN上，我们也可以利用本文中的一些直观，在对模型进行一些限定之后，找到$\weq_{REG}$和$\beq_{REG}$问题的一些思路。
 
 我们在进行无限状态系统验证问题的研究时，另一个十分重要的研究目标就是给定一个问题，我们需要设法证明他的算法复杂性的下界或者不可判定性。我们统称这两类问题为下界问题。我们将在本章最后，讨论Regularity相关的下界问题。
 
-\section{nBPP的$\beq_{REG}$问题}
+\section{正规化BPP的$\beq_{REG}$问题}
 \label{sec:nbpp}
 
 本节我们將对nBPP的$\beq_{REG}$的解决思路做一些简单的讨论。我们将在着重讨论$\not\beq_{REG}$的半可判定性。我们希望能够证明：
@@ -63,12 +63,12 @@ Normed BPP的$\beq$是半可判定的。
 \end{lem}
 
 \begin{proof}
-由引理\ref{lemma:infi-path}，该进程的Norm显然可以任意增大(但不是$\infty$)，得证。
+由引理\ref{lemma:infi-path}，该进程的模显然可以任意增大(但不是$\infty$)，得证。
 \end{proof}
 
 由引理\ref{lemma:nbpp-infi-var-semi}和\ref{lemma:nbpp-beq-reg-infi-norm}可知这我们无需考虑那些$Norm>0$的进程，因为这种情况可以简单的判定，即检测是否$Inf(\alpha,\Delta)$中有$Norm>0$的进程变量。
 
-我们就将问题简化为，只需要对$Inf(\alpha,\Delta)$中Norm为零的进程进行讨论即可。
+我们就将问题简化为，只需要对$Inf(\alpha,\Delta)$中$Norm=0$的进程进行讨论即可。
 
 由这一思路，我们将定义一种\emph{稳定(Stable)}的进程变量。
 
@@ -99,7 +99,7 @@ Normed BPP的$\beq$是半可判定的。
 \end{lem}
 
 \begin{proof}
-我们根据进程变量的Norm分情况讨论：
+我们根据进程变量的模分情况讨论：
 \begin{itemize}
 \item 给定一个nPP进程$(\alpha,\Delta)$，对于$Inf(\alpha,\Delta)$中的$Norm>0$的进程，容易判定。
 \item 对于$Norm=0$的进程，如果存在这样可以有效计算的$C$，那么对于每个进程变量，我们都可以有效得判定其是否是稳定的。假设对于某个进程变量$X$，超过$C$仍然找不到对应的$k$，那么由假设可知$X$不是稳定的。我们很容易得到无限个互不$\beq$等价的状态$X^1\not\beq X^2\not\beq\ldots$。如果这样，过程终止，该进程是$\not\beq_{REG}$的。
@@ -113,14 +113,14 @@ Normed BPP的$\beq$是半可判定的。
 
 尽管迄今为止，有效的计算$C$的方法还没有被发现。但是种种迹象表明，沿着这个思路继续探究，必定能够完全的解决nBPP上的$\beq_{REG}$问题。
 
-\section{tnPN的$\weq_{REG}$和$\beq_{REG}$问题}
+\section{完全正规化PN的$\weq_{REG}$和$\beq_{REG}$问题}
 \label{sec:tnPN}
 
-Petri Net是一个在程序分析，软件工程和协议验证方面常用的模型。它是PRS中的完全并行化的一个进程模型。由\cite{Jancar1996}和推论\ref{cor:pn-beq-und}可知，该模型的Regularity问题在仅考虑强互模拟的情况下，是可判定的，相关的$\weq_{REG}$和$\beq_{REG}$问题都是不可判定的。所以我们在研究这两个问题时，至少需要加上Normed限制。
+Petri Net是一个在程序分析，软件工程和协议验证方面常用的模型。它是PRS中的完全并行化的一个进程模型。由\cite{Jancar1996}和推论\ref{cor:pn-beq-und}可知，该模型的Regularity问题在仅考虑强互模拟的情况下，是可判定的，相关的$\weq_{REG}$和$\beq_{REG}$问题都是不可判定的。所以我们在研究这两个问题时，至少需要加上正规化限制。
 
 然而，经过第\ref{sec:nbpp}节中的研究，我们知道即使是nPN的一个子模型nBPP，它的$\beq_{REG}$问题尚未完全解决。
 
-为了研究PN下关于包含内部动作的互模拟关系的Regularity问题，在第\ref{chap:tnpa-equiv}章和第\ref{chap:tnpa-alg}章中PA工作的启发下，我们很自然的可以想到，可以先试图解决Totally Normed限制下的PN的$\weq_{REG}$和$\beq_{REG}$问题。在tnPA的模型中，Totally Normed条件可以有效地将进程所生成的表达式的语言的数量和其状态的数量建立一定的约束关系，这是进行进程有限性判定的关键。在tnPN的模型中，我们也可以尝试沿着这个思路进行研究。
+为了研究PN下关于包含内部动作的互模拟关系的Regularity问题，在第\ref{chap:tnpa-equiv}章和第\ref{chap:tnpa-alg}章中PA工作的启发下，我们很自然的可以想到，可以先试图解决完全正规化限制下的PN的$\weq_{REG}$和$\beq_{REG}$问题。在tnPA的模型中，完全正规化条件可以有效地将进程所生成的表达式的语言的数量和其状态的数量建立一定的约束关系，这是进行进程有限性判定的关键。在tnPN的模型中，我们也可以尝试沿着这个思路进行研究。
 
 我们知道，类似PN的并行进程模型都可以用Vector Addition System(VAS)进行表示。由\cite{Rackoff1978,Cardoza1976}，我们有一个关于VAS的有限性(Boundedness)的复杂度结论：
 
@@ -138,12 +138,12 @@ Petri Net是一个在程序分析，软件工程和协议验证方面常用的�
 
 一个很自然的思路就是我们可以试图去证明这个条件也是tnPN$\not\weq_{REG}$和$\not\beq_{REG}$的一个充分条件。从而利用引理\ref{lemma:pn-bound}中的结论来对该问题进行判定。
 
-现在遇到的困难是，由于tnPN并没有类似于上下文无关模型(BPA，BPP和PA)中的Norm对加法的同余性，所以我们没有办法直接通过简单的Norm的分析，来得到Norm可以不停增加的进程项序列。
+现在遇到的困难是，由于tnPN并没有类似于上下文无关模型(BPA，BPP和PA)中的模对加法的同余性，所以我们没有办法直接通过简单的关于模的分析，来得到模可以不停增加的进程项序列。
 
 现在该问题有两种可能的结果：
 
 \begin{enumerate}
-	\item 通过进一步分类tnPN中的进程变量，更精细地分析它的行为和规则。可以使用类似与归纳法的思路，从而证明Norm增加的序列所需满足的条件。
+	\item 通过进一步分类tnPN中的进程变量，更精细地分析它的行为和规则。可以使用类似与归纳法的思路，从而证明进程的模增加的序列所需满足的条件。
 
 如果成立，那么可以试图证明
 
@@ -154,10 +154,10 @@ tnPN的$\weq_{REG}$和$\beq_{REG}$问题是EXPSPACE完全的。
 	\item 如果猜想\ref{conj:tnpn-reg}不成立，我们可以通过对\cite{Jancar1996}和推论\ref{cor:pn-beq-und}中的归约进一步分析，证明该问题是不可判定的。
 \end{enumerate}
 
-由作者对模型和等价关系的直观，个人更倾向于相信猜想\ref{conj:tnpn-reg}中EXPSPACE完全的结论成立。因为，Totally Normed的条件从某种程度上限制了进程变量``消失''的能力，``消失''之前至少要留下``痕迹''。这就为进程表达式的语言上的无穷性和进程状态的语义上的无穷性提供了一个联系，使得Regularity的判定问题更加有可能被解决。而且，第一个猜想中的结论也是更有实际意义的，正如第\ref{chap:pre}章中提到的，我们更希望能得到复杂性上完全的结论。
+由作者对模型和等价关系的直观，个人更倾向于相信猜想\ref{conj:tnpn-reg}中EXPSPACE完全的结论成立。因为，完全正规化的条件从某种程度上限制了进程变量``消失''的能力，``消失''之前至少要留下``痕迹''。这就为进程表达式的语言上的无穷性和进程状态的语义上的无穷性提供了一个联系，使得Regularity的判定问题更加有可能被解决。而且，第一个猜想中的结论也是更有实际意义的，正如第\ref{chap:pre}章中提到的，我们更希望能得到复杂性上完全的结论。
 
 
-\section{Regularity问题的下界}
+\section{进程重写系统有限性问题的下界}
 \label{sec:lower-bound}
 
 不仅限于无限状态系统的验证问题，对于计算机理论中的所有问题，人们最感兴趣的都是是否能得到一个完备(Complete)的结论。

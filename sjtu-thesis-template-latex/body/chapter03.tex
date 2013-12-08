@@ -3,30 +3,30 @@
 \chapter{相关结论和技术}
 \label{chap:relat}
 
-为了能更好的研究PRS上的Regularity问题，本章中我们首先将引入一个无限状态系统验证问题中常常用到的重要限定条件，Normed进程，同时我们会对该限定做进一步的规定，并给出Totally Normed进程。之后我们将介绍PRS上Regularity问题现阶段我们已知的结论，并进行归纳和总结，并得到一些推论。最后将介绍一些PRS上证明Regularity问题所用到的一些技术和引理。
+为了能更好的研究PRS上的Regularity问题，本章中我们首先将引入一个无限状态系统验证问题中常常用到的重要限定条件，正规化进程，同时我们会对该限定做进一步的规定，并给出完全正规化进程的定义。之后我们将介绍PRS上Regularity问题现阶段我们已知的结论，并进行归纳和总结，并得到一些推论。最后将介绍一些PRS上证明Regularity问题所用到的一些技术和引理。
 
 
-\section{Normed条件}
+\section{正规化进程}
 \label{sec:norm}
  
-在无限状态系统验证问题中，我们常常要对所研究的模型做一些合理的限定，以便使该模型满足一些我们所需要的性质，从而可以得到更好的可判定行或者算法复杂性的结论。从研究语言理论的角度出发，我们经常要求模型是\emph{Normed}。从直观上来说，一个Normed进程可以通过有限步转换到达一个$\epsilon$进程。如果做进一步限定，Totally Normed进程则不仅要满足Normed性质，而且到达$\epsilon$进程至少要经过一个可见动作。(Totally) Normed进程的定义为：
+在无限状态系统验证问题中，我们常常要对所研究的模型做一些合理的限定，以便使该模型满足一些我们所需要的性质，从而可以得到更好的可判定行或者算法复杂性的结论。从研究语言理论的角度出发，我们经常要求模型是\emph{正规化(Normed)}的。从直观上来说，一个正规化进程可以通过有限步转换到达一个$\epsilon$进程。如果做进一步限定，完全正规化进程则不仅要满足正规化性质，而且到达$\epsilon$进程至少要经过一个可见动作。(完全)正规化进程的定义为：
 
-\begin{defn}[(Totally) Normed 进程 (Totally)Normed Process]\label{def:norm}
-一个进程项$\alpha$的Norm，记做$\|\alpha\|$，表示从$\alpha$能达到$\epsilon$的转换序列的最短长度，如果考虑弱互模拟，则不考虑$\tau$动作。
+\begin{defn}[(完全)正规化进程 (Totally)Normed Process]\label{def:norm}
+一个进程项$\alpha$的\emph{模(Norm)}，记做$\|\alpha\|$，表示从$\alpha$能达到$\epsilon$的转换序列的最短长度，如果考虑弱互模拟，则不考虑$\tau$动作。
 
-我们称一个进程项$\alpha$是Normed，如果满足$0\leq\|\alpha\|<\infty$，称它是Totally Normed，如果满足$0<\|\alpha\|<\infty$。
-一个Normed PRS进程$\Delta$中所有的进程变量均是Normed。
-类似的，一个Totally Normed PRS进程$\Delta$中所有的进程变量均是Totally Normed。
+我们称一个进程项$\alpha$是正规化的，如果满足$0\leq\|\alpha\|<\infty$，称它是完全正规化的，如果满足$0<\|\alpha\|<\infty$。
+一个正规化的PRS进程$\Delta$中所有的进程变量均是正规化的。
+类似的，一个完全正规化的PRS进程$\Delta$中所有的进程变量均是完全正规化的。
 \end{defn}
 
-Normed条件规定了一个进程只能做有限个减少Norm的动作，满足该条件的进程往往会满足一些美妙的分解性质。而Totally Normed条件则进一步限定了进程做$\tau$动作的限制，没有进程项能只做$\tau$动作就变空。Totally Normed限定也是十分合理的，在现实系统中通常也不需要定义，或者通过一些技巧来规避那种``悄无声息''就消失的进程。这些限定在研究考虑内部动作的互模拟关系的验证问题时，发挥了很大的作用。
+正规化条件规定了一个进程只能做有限个减少模的动作，满足该条件的进程往往会满足一些美妙的分解性质。而完全正规化条件则进一步限定了进程做$\tau$动作的限制，没有进程项能只做$\tau$动作就变空。完全正规化的限定也是十分合理的，在现实系统中通常也不需要定义，或者通过一些技巧来规避那种``悄无声息''就消失的进程。这些限定在研究考虑内部动作的互模拟关系的验证问题时，发挥了很大的作用。
 
-为了表达的简洁性，我们在相关模型前加上n和tn分别作为Normed和Totally Normed的简称。例如Normed BPA简称为nBPA，而Totally Normed PA简称为tnPA。
+为了表达的简洁性，我们在相关模型前加上n和tn分别作为正规化(Norm)和完全正规化(Totally Normed)的简称。例如Normed BPA简称为nBPA，而Totally Normed PA简称为tnPA。
 
-\section{PRS上Regularity问题现有结论总结}
+\section{进程重写系统有限性问题现有结论总结}
 \label{sec:prs-reg-result}
 
-本节将根据不同的PRS子模型，分别总结其现有的关于强互模拟，弱互模拟和Branching互模拟的Regularity问题的结论，并根据问题的相似性，直接给出一些推论。根据定义\ref{def:prob}中给出的记号，我们将三类问题分别及做$\seq_{REG},\,\weq_{REG}$和$\beq_{REG}$。
+本节将根据不同的PRS子模型，分别总结其现有的关于强互模拟，弱互模拟和分支互模拟的Regularity问题的结论，并根据问题的相似性，直接给出一些推论。根据定义\ref{def:prob}中给出的记号，我们将三类问题分别及做$\seq_{REG},\,\weq_{REG}$和$\beq_{REG}$。
 
 表\ref{tab:bpa-reg}为BPA上的结论总结，表中如果出现两行则分别表示该问题已知的复杂度上界和下界。``?''表示该问题还未被解决。
 
@@ -246,7 +246,7 @@ $$\alpha\act{a_0}\alpha_1\act{a_1}\alpha_2\act{a_2}\ldots$$
 和引理\ref{lemma:infi-path}证明类似，与之同理，我们考虑以$\alpha$为根的一棵转换动作的树。如引理\ref{lemma:infi-path}中的无限长路径一定存在，而$\not\cong$则一定有$\not\equiv$。证毕。
 \end{proof}
 
-关于Normed进程，我们显然有Norm不相等的进程是不互模拟等价的。这样我们就有了一个关于Normed进程的Regularity问题的充分条件。
+关于正规化进程，我们显然有模不相等的进程是不互模拟等价的。这样我们就有了一个关于正规化进程的Regularity问题的充分条件。
 
 \begin{lem}[Infinite Norm Increasing Path]\label{lemma:infi-path-3}
 一个进程系统$(\alpha,\Delta)$，\emph{如果}存在一个无限长的动作序列

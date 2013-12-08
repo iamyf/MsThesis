@@ -4,7 +4,7 @@
 
 在这一部分，我们首先介绍一下研究PRS上Regularity问题的背景知识。包括相关的模型和一些有趣的互模拟等价关系，以及研究无限状态系统验证的几个基本问题和目标。
 
-\section{进程重写系统 PRS}
+\section{进程重写系统}
 \label{sec:prs}
 
 \subsection{基本定义}
@@ -108,7 +108,7 @@ PRS利用对语义规则中进程项类型的分类，分成了几个子模型�
 \label{fig:prs}
 \end{figure}
 
-\subsection{PRS中的模型}
+\subsection{进程重写系统中的模型}
 \label{subsec:models}
 
 本小节中将按照PRS层次结构中自地向上的顺序依次介绍几个模型。
@@ -152,7 +152,7 @@ $\seq=\bigcup\{\mathcal{R}:\mathcal{R}\mbox{ 是一个强互模拟关系}\}$，�
 \subsection{考虑内部动作的互模拟关系}
 \label{subsec:silent-bis}
 
-基于上一节定义的强互模拟关系，为了更精确的刻画进程间的等价，Milner在等价关系的定义中引入了系统\emph{内部动作(Silent Actions)}，定义了\emph{弱互模拟关系(Weak Bisimilarity)}\cite{Milner1989}。它忽略了系统内部动作对观测的影响，使得等价关系的对进程间的区分更``弱''了。而van Glabbeek和Weijland为了更精确地区分系统内部动作对系统状态的影响，定义了\emph{Branching互模拟关系(Branching Bisimilarity)}\cite{Glabbeek1996}。它仅仅忽略了不影响系统状态的内部动作，是一个更加精确和合理的等价关系。
+基于上一节定义的强互模拟关系，为了更精确的刻画进程间的等价，Milner在等价关系的定义中引入了系统\emph{内部动作(Silent Actions)}，定义了\emph{弱互模拟关系(Weak Bisimilarity)}\cite{Milner1989}。它忽略了系统内部动作对观测的影响，使得等价关系的对进程间的区分更``弱''了。而van Glabbeek和Weijland为了更精确地区分系统内部动作对系统状态的影响，定义了\emph{分支互模拟关系(Branching Bisimilarity)}\cite{Glabbeek1996}。它仅仅忽略了不影响系统状态的内部动作，是一个更加精确和合理的等价关系。
 
 为了给出这两种等价关系的形式化定义，我们做如下规定：
 \begin{itemize}
@@ -161,7 +161,7 @@ $\seq=\bigcup\{\mathcal{R}:\mathcal{R}\mbox{ 是一个强互模拟关系}\}$，�
     \item 我们用$\Longrightarrow$来表示$\act{\tau}$的自反传递闭包(Reflexive Transitive Closure)。$\Act{\widehat{\ell}}$用来表示$\Act{}\act{\ell}\Act{}$，如果$\ell\not=\tau$，否则表示$\Longrightarrow$。
 \end{itemize}
 
-接下来给出弱互模拟和Branching互模拟的定义：
+接下来给出弱互模拟和分支互模拟的定义：
 \begin{defn}[弱互模拟关系 Weak Bisimilarity]\label{def:weak-bis}
 一个关于标号迁移系统中状态的二元关系$\mathcal{R}$是一个\emph{弱互模拟关系(Weak Bisimulation)}当且仅当对任意$(\alpha,\beta)\in \mathcal{R}$，我们有：
 \begin{itemize}
@@ -171,8 +171,8 @@ $\seq=\bigcup\{\mathcal{R}:\mathcal{R}\mbox{ 是一个强互模拟关系}\}$，�
 最大的弱互模拟关系(Weak Bisimilarity)记做$\weq$。
 \end{defn}
 
-\begin{defn}[Branching互模拟关系 Branching Bisimilarity]\label{def:bra-bis}
-一个关于标号迁移系统中状态的二元关系$\mathcal{R}$是一个\emph{Branching互模拟关系(Branching Bisimulation)}当且仅当对任意$(\alpha,\beta)\in \mathcal{R}$，我们有：
+\begin{defn}[分支互模拟关系 Branching Bisimilarity]\label{def:bra-bis}
+一个关于标号迁移系统中状态的二元关系$\mathcal{R}$是一个\emph{分支互模拟关系(Branching Bisimulation)}当且仅当对任意$(\alpha,\beta)\in \mathcal{R}$，我们有：
 \begin{itemize}
     \item 如果$\alpha\stackrel{a}{\longrightarrow}\alpha'$，那么以下两个命题之一成立：
     \begin{itemize}
@@ -185,12 +185,12 @@ $\seq=\bigcup\{\mathcal{R}:\mathcal{R}\mbox{ 是一个强互模拟关系}\}$，�
         \item 存在$\alpha^{''}$，使得$\alpha\Act{}\alpha^{''}$，满足$(\alpha^{''},\beta)\in\mathcal{R}$，且存在$\alpha'$，有$\alpha^{''}\stackrel{a}{\longrightarrow}\alpha'$，满足$(\alpha',\beta')\in\mathcal{R}$。
     \end{itemize}
 \end{itemize}
-最大的Branching互模拟关系(Branching Bisimilarity)记做$\beq$。
+最大的分支互模拟关系(Branching Bisimilarity)记做$\beq$。
 \end{defn}
 
-可以看出，弱互模拟在模拟的过程中忽略了所有内部动作对观测造成的影响，要求相对``宽松''。而Branching互模拟从某种意义上来说更加精确地分析了不同内部动作的区别，系统在模拟的过程中可以先经过一系列不改变状态的内部动作，然后进行模拟。这种Branching互模拟关系在模拟路径上除最后一步都需要满足不改变系统状态，更加符合实际应用中我们遇到的系统，例如程序优化的过程中，我们也仅能忽略不改变程序状态的内部语句，而不能忽略会对程序结果造成影响的语句。
+可以看出，弱互模拟在模拟的过程中忽略了所有内部动作对观测造成的影响，要求相对``宽松''。而分支互模拟从某种意义上来说更加精确地分析了不同内部动作的区别，系统在模拟的过程中可以先经过一系列不改变状态的内部动作，然后进行模拟。这种分支互模拟关系在模拟路径上除最后一步都需要满足不改变系统状态，更加符合实际应用中我们遇到的系统，例如程序优化的过程中，我们也仅能忽略不改变程序状态的内部语句，而不能忽略会对程序结果造成影响的语句。
 
-下面给出一个例子，以说明Branching互模拟与强互模拟在验证问题中的应用场景,如图\ref{fig:bis-verif}
+下面给出一个例子，以说明分支互模拟与强互模拟在验证问题中的应用场景,如图\ref{fig:bis-verif}
 
 \begin{figure}[htbp]
 \begin{center}

@@ -1,11 +1,11 @@
-\chapter{Totally Normed PA Regularity的充要条件}
+\chapter{完全正规化PA有限性的充要条件}
 \label{chap:tnpa-equiv}
 
 在这一章中，我们将具体讨论和证明tnPA的$\weq_{REG}$和$\beq_{REG}$问题的充分必要条件，定理\ref{thm:tnpa-equiv}。这里将\cite{Kucera1996}中用于判定nPA的$\seq_{REG}$的一些技术应用到我们讨论的问题中，起到了很好的效果。这里证明的充要条件将会在第\ref{chap:tnpa-alg}章中的多项式算法中被判定。
 
 这里需要说明的是，由于这些条件都需要是可判定的，在判定的过程中我们需要一个计算复杂性上可行的算法。这就意味着我们所给出条件的判定过程需要有一个确定的，有限的，可以有效计算的上界。否则判定算法上会发生状态数量的爆炸，整个过程就丧失了计算上的可行性。这个上界会在接下来的分析中一步步变得清晰，我们要遵守的一个原则是这个上界只能和输入进程的语法规则和初始状态的规模相关。
 
-\section{PA模型定义}
+\section{进程代数 PA}
 \label{sec:pa-def}
 
 为了问题研究的严谨性，我们这里在PRS的一般性定义\ref{def:prs}的基础上，给出PA的严格定义。
@@ -32,7 +32,7 @@ $\inference{\alpha\act{a}\alpha^{'}}{\alpha\llfloor \beta\act{a}\alpha^{'}\|\bet
 
 另外，我们用$Length(\alpha)$表示$\alpha$中出现的进程变量的个数。
 
-同时，我们限制在章里我们所关心的PA进程都是Totally Normed的。同时如果不特殊说明，我们证明中所用到的等价关系都是弱互模拟关系$\weq$。这些证明对于$\beq$都是成立的。
+同时，我们限制在章里我们所关心的PA进程都是完全正规化的。同时如果不特殊说明，我们证明中所用到的等价关系都是弱互模拟关系$\weq$。这些证明对于$\beq$都是成立的。
 
 \section{进程状态的增长}
 \label{sec:grow-prop}
@@ -209,7 +209,7 @@ WidthT(N) &=& \left\{ \begin{array}{ll}
 
 下面在定义\ref{def:branch-d}中，我们为转换关系树定义了一个\emph{分枝度(Branching Degree)}，它的最大值被输入的tnPA的规则所限定。
 
-\begin{defn}[Branching Degree]\label{def:branch-d}
+\begin{defn}[分枝度 Branching Degree]\label{def:branch-d}
 给定一个转换关系树$T_{\mathcal{P}}$，它的\emph{分枝度(Branching Degree)}，为它节点的子节点个数的最大值，即其中分枝数的最大值。我们用$\mathbf{D}$表示这个数。
 \end{defn}
 
@@ -285,7 +285,7 @@ WidthT(N) &=& \left\{ \begin{array}{ll}
 
 有假设中$(\alpha,\Delta)$的定义，可知存在某个状态$\alpha_x$，满足$\alpha\act{}^{*}\alpha_x$，且$X\in Var(\alpha_x)$。由引理\ref{lemma:fire}可知，存在一个状态$\beta_x$，满足$\alpha\act{}^{*}\alpha_x\act{}^{*}\beta_x$，且$X\in Fire(\beta_x)$。
 
-我们知道，互模拟的进程的Norm必然想等，由引理\ref{lemma:infi-path-3}可知，我们只需证明对于任意$k\in \mathcal{N}$，存在一个可达的状态$\beta_k$满足$\|\beta_k\|\geq k$。
+我们知道，互模拟的进程的模必然想等，由引理\ref{lemma:infi-path-3}可知，我们只需证明对于任意$k\in \mathbb{N}$，存在一个可达的状态$\beta_k$满足$\|\beta_k\|\geq k$。
 
 这里我们选择状态$\beta_x$进行分析，令$X$为激活变量。由于$X$是一个增长变量，所以存在一个可达的状态$\beta_1^{'}$，满足$X\act{}^{*}\beta_1^{'}$，$X\in Fire(\beta_1^{'})$，且$Length(\beta_1^{'})\geq 2$。
 
@@ -293,7 +293,7 @@ WidthT(N) &=& \left\{ \begin{array}{ll}
 
 这样我们可以重复这一过程，从$\beta_1$中构造出$\beta_2,\beta_3\ldots$，这些状态满足$X\in Fire(\beta_i)$，且$Length(\beta_{i+1})>Length(\beta_i)(i=2,3,\ldots)$。即满足$Length(\beta_k)\geq k$。
 
-由假设，我们有$(\alpha,\Delta)$是Totally Normed，所以有对于每一个变量$Y\in Var(\beta_k)$，满足$\|Y\|\geq 1$。结合之前$Length(\beta_k)\geq k$的结论，我们就可以从Totally Normed性质得出$\|\beta_k\|\geq k$。
+由假设，我们有$(\alpha,\Delta)$是完全正规化的，所以有对于每一个变量$Y\in Var(\beta_k)$，满足$\|Y\|\geq 1$。结合之前$Length(\beta_k)\geq k$的结论，我们就可以从完全正规化性质得出$\|\beta_k\|\geq k$。
 
 必要性得证。
 	
@@ -316,7 +316,7 @@ WidthT(N) &=& \left\{ \begin{array}{ll}
 综上，本定理得证。
 \end{proof}
 
-这个证明中有两处涉及到了$\weq$，首先在必要性的证明中如两个tnPA进程Norm不相等，那么它们必然不是$\weq$的。同理，它们也不是$\beq$的。
+这个证明中有两处涉及到了$\weq$，首先在必要性的证明中如两个tnPA进程模不相等，那么它们必然不是$\weq$的。同理，它们也不是$\beq$的。
 
 在充分性的证明中，我们用到了如果两个进程是$\equiv$那么必然是$\weq$的，同理，显然对于$\equiv$的两个进程，也满足$\beq$。综上所述，该定理对与$\beq_{REG}$一样成立，我们有推论\ref{cor:tnpa-equiv}：
 
@@ -324,6 +324,6 @@ WidthT(N) &=& \left\{ \begin{array}{ll}
 一个tnPA进程$(\alpha,\Delta)$满足$\beq_{REG}$\emph{当且仅当}$Var(\Delta)$不包含任何增长变量。
 \end{cor}
 
-需要注意的是，该证明对更加一般的nPA模型并不成立。因为我们在必要性的证明中用到了tnPA中所有进程变量的Norm至少为$1$的限定条件。如果去掉这一限定，那么对于Norm为$0$的那些进程，我们就不能用进程表达式语言上的长度限制来得到Norm上的下界了。如果要克服这一问题，我们需要对进程的行为进行更精细的分析，以得到更强大的性质。
+需要注意的是，该证明对更加一般的nPA模型并不成立。因为我们在必要性的证明中用到了tnPA中所有进程变量的模至少为$1$的限定条件。如果去掉这一限定，那么对于模为$0$的那些进程，我们就不能用进程表达式语言上的长度限制来得到进程项的模的下界了。如果要克服这一问题，我们需要对进程的行为进行更精细的分析，以得到更强大的性质。
 
 在第\ref{chap:tnpa-alg}章中，我们将集中讨论如何找到一个有效的算法对该条件进行判定，并分析该算法的时间复杂度，从而找到解决tnPA的Regularity问题的具体算法。
