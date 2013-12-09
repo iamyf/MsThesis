@@ -6,7 +6,7 @@
 
 通常在研究系统间等价性判定的同时一起研究其对应的有限性问题是对我们大有裨益的。有限性问题在模型检测和程序分析的领域都扮演了非常重要的角色。在实际应用中，如果存在一个可行的方法，能检测一个正则系统与一个有限系统的等价性，那么我们就可以这个过程来检测一个系统与有限系统的等价性，假设我们可以检测系统的有限性，即正则性。
 
-该问题十分依赖于我们选择研究的等价关系。我们通常会使用互模拟等价的概念，它是一种语义上的观测等价。它和语言等价相比更有区分性，同时为我们提供了强大的计算可行性和一个美妙的博弈论描述。对于强互模拟关系，我们研究了大量关于它的可判定性和计算复杂性结论。然而，类似于弱互模拟和分支互模拟关系的互模拟引入了系统内部的不可见动作。不可见动作的引入，即为等价关系提供了更精确的描述，也为它的判定带来了更大的难度。
+该问题十分依赖于我们选择研究的等价关系。我们通常会使用互模拟等价的概念，它是一种语义上的观测等价。它和语言等价相比更有区分性，同时为我们提供了强大的计算可行性和一个优美的博弈论描述。对于强互模拟关系，我们通过研究得到了大量关于它的可判定性和计算复杂性结论。然而，类似于弱互模拟和分支互模拟关系的互模拟关系，在定义中考虑了系统内部的不可见动作。不可见动作的引入，既为等价关系提供了更精确的描述，也为它的判定带来了更大的难度。
 
 验证问题的研究，大多数都是在进程重写系统中的范围内进行的。这是一个包含了很多无限状态系统的一般的模型。比如基本进程代数(BPA)，基本并发进程(BPP)，下推自动机(PDA)，Petri网(PN)和进程代数(PA)。
 
@@ -17,6 +17,8 @@
 另外，本文中还讨论了正规化的基本并发进程关于分支互模拟的有限性，以及完全正规化的Petri网关于弱互模拟和分支互模拟的有限性问题。本文中讨论了一些有用的引理和证明思路。
 
 最后，本文还涉及了进程重写系统有限性问题的不可判定性和计算复杂性下界的证明。我们罗列了一些问题和猜想，作为未来的工作。
+
+总的来说，本文为一个具有挑战性的理论问题，进程重写系统关于考虑系统内部动作的互模拟等价关系的有限性问题，给出了一个创新的解决方案。对于未来的工作，在应用上，我们可以将多项式时间算法进行实现；在理论上，我们可以对更多的可判定性和复杂性结论进行证明。
 
   \keywords{\large 进程重写系统 \quad 有限性 \quad 互模拟等价关系 \quad 可判定性 \quad 多项式时间算法}
 \end{abstract}
@@ -38,6 +40,8 @@ The main contribution of this papar is a solution of the regularity problem for 
 Further, the regularity of normed basic parallel process with respect to branching bisimilarity and the regularity of totally normed petri net with respect to weak and branching bisimilarity are also discussed in this paper. Some useful lemmas and proof ideas are discussed in our paper.
 
 Finally, the undecidability and complexity lower bounds for regularity problems in process rewrite systems are also mentioned. Some problems and conjectures are listed as the future work.
+
+In summary, this paper provides an innovative framework of solving the challenging theoretical problem, regularity on process rewrite systems with respect to bisimilarity with silent actions. For the future work, a polynomial algorithm could be implemented practically, and more decidability and complexity results for these series of problems could be proved theoretically.
 
   \englishkeywords{\large Process Rewrite System, \quad Regularity, \quad Bisimulation Equivalence, \quad Decidability, \quad Polynomial Time Algorithm}
 \end{englishabstract}
