@@ -29,7 +29,7 @@
 
 但是在实际的系统中，例如在程序分析和数据库系统中，很多系统的转换只能用内部动作来描述，所以更具有实际意义的通常是区分系统内部动作的弱互模拟和分支互模拟。许多模型关于带有内部动作的互模拟等价关系判定问题都被证明是不可判定的\cite{Jancar2008}。然而，对于分支模拟的判定问题近两年得到了很大的突破。正规化BPP和正规化BPA上关于分支互模拟等价的可判定性分别被证明\cite{CzerwiAski2011,Fu2013}。这两个结论是十分令人兴奋的，它们为分支互模拟等价的相关研究开辟了新的道路。
 
-Finiteness的判定是一个和Regularity相似但是直观上更加容易的问题。因为该问题中有限状态系统是给定的，我们需要做的仅仅是判定它和给定系统是否等价。关于各种互模拟关系的Finitness问题通常都有多项式时间复杂度的快速解法。例如BPA和正规化BPP中关于弱互模拟和分支互模拟的finiteness都有多项式时间算法\cite{Kucera2002,Fu2009}。即使没有多项式时间的算法，关于PDA，PA和PN关于强互模拟分别是PSPACE\cite{Kucera2002a}，co-NEXPTIME\cite{Goller2011}和可判定的\cite{Jancar1995a}。显然，通常这些问题都比对应的Equivalence Checking问题有着更好的计算复杂性和可判定性。而Regularity问题在某种意义上提供了联系这两个问题的一个桥梁：如果某个进程满足Regularity性质，那么我们就可以用更快速的Finiteness判定的算法来进行Equivalence Checking的工作。
+Finiteness的判定是一个和Regularity相似但是直观上更加容易的问题。因为该问题中有限状态系统是给定的，我们需要做的仅仅是判定它和给定系统是否等价。关于各种互模拟关系的Finitness问题通常都有多项式时间复杂度的快速解法。例如BPA和正规化BPP中关于弱互模拟和分支互模拟的Finiteness都有多项式时间算法\cite{Kucera2002,Fu2009}。即使没有多项式时间的算法，关于PDA，PA和PN关于强互模拟分别是PSPACE\cite{Kucera2002a}，co-NEXPTIME\cite{Goller2011}和可判定的\cite{Jancar1995a}。显然，通常这些问题都比对应的Equivalence Checking问题有着更好的计算复杂性和可判定性。而Regularity问题在某种意义上提供了联系这两个问题的一个桥梁：如果某个进程满足Regularity性质，那么我们就可以用更快速的Finiteness判定的算法来进行Equivalence Checking的工作。
 
 在现阶段，关于强互模拟关系的Regularity问题通常在可判定性上有了不错的结果。在BPA上关于强互模拟关系的Regularity问题被证明是2-EXPTIME的\cite{Burkart1995,Burkart1996},而对于BPP则是PSPACE完全的\cite{Kot2005a}。在PDA上，现阶段只证明了正规化条件下的可判定性，而且有一个多项式时间的算法\cite{Esparza2000}。关于PA，也仅在正规化条件下有一个多项式时间的算法\cite{Kucera1996}。而对于PN，我们有Regularity的可判定性,并且在引入内部动作后该问题变为不可判定的\cite{Jancar1995a}。
 
@@ -40,13 +40,13 @@ Finiteness的判定是一个和Regularity相似但是直观上更加容易的问
 \section{主要工作}
 \label{sec:contribution}
 
-本文主要针对关于引入内部动作的互模拟等级关系的Regularity问题进行了讨论。主要贡献可以分为一下几个方面：
+本文主要针对关于引入内部动作的互模拟等价关系的Regularity问题进行了研究。主要贡献可以分为一下几个方面：
 
 \begin{enumerate}
-	\item 归纳总结了PRS上Regularity问题的现有结论与技术，给出了一些解决Regularity问题所用到的技术和引理。
+	\item 归纳总结了PRS上Regularity问题的现有结论与技术，给出了一些解决Regularity问题所用到的具有一般性的技术和引理。并且给出了一个PN关于分支互模拟Regularity问题的不可判定性的推论。
 	\item 对完全正规化PA关于弱互模拟和分支互模拟关系的Regularity问题给出了一个多项式时间算法。证明了该算法的正确性，并做了复杂度分析。该算法的时间复杂度是$\mathscr{O}(n^3+mn)$的，其中$m$和$n$都是和输入模型相关的参数。该算法对PA的子模型BPA和BPP也成立。
 	\item 对正规化BPP关于分支互模拟关系以及完全正规化 PN关于弱互模拟和分支互模拟关系的Regularity问题的研究思路和证明技术进行了讨论，并为今后的进一步工作提供了一定的思路。
-	\item 针对Regularity问题的下界研究提出了一些现阶段似乎可以的问题，通过归约直接得出了一些有用的推论。并根据不同的模型和等价关系的性质，对将要研究的问题提出一些可能结论的猜想。
+	\item 针对Regularity问题的下界研究提出了一些现阶段似乎可以解决的问题，并讨论了相关的归约技术。根据不同的模型和等价关系的性质，对将要研究的问题提出一些可能结论的猜想。
 \end{enumerate}
 
 本文的工作讨论的问题是属于无限状态系统验证领域中的一部分工作，和该领域中很多经典的问题都有交叉。在得到了关于完全正规化PA上不错结论的同时，也提出了对后续问题的解决十分具有启发意义的研究思路。
